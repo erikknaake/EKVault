@@ -16,6 +16,7 @@ export class EncryptedData {
 
   set data(value: string) {
     this._data = value;
+    this.updatePadding();
   }
 
   get padding(): string {
