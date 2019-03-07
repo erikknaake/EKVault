@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+declare let require;
 const nanoid = require('nanoid');
 @Injectable({
   providedIn: 'root'
