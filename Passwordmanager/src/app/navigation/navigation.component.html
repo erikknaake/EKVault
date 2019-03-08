@@ -1,3 +1,19 @@
-<p>
-  navigation works!
-</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-button-toggle-group value="{{this.router.url}}">
+      <mat-button-toggle routerLink="/load" value="/load">
+        <mat-icon>lock_open</mat-icon>
+        <p>Load</p>
+      </mat-button-toggle>
+      <mat-button-toggle routerLink="/new" value="/new">
+        <mat-icon>lock</mat-icon>
+        <p>New</p>
+      </mat-button-toggle>
+      <mat-button-toggle routerLink="/settings" value="/settings">
+        <mat-icon>settings</mat-icon>
+        <p>Settings</p>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-toolbar-row>
+</mat-toolbar>
+

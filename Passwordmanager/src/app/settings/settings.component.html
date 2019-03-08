@@ -1,3 +1,37 @@
-<div>
-  <div><label for="password-length">Password length: </label><input id=password-length type="number" value="this.getPasswordLength()"></div>
+<div class="settings">
+  <div class="settings-section">
+    <div class="settings-row">
+      <mat-form-field color="primary">
+        <input matInput placeholder="Password length" type="number" value="{{getPasswordLength()}}" [formControl]="passwordLengthControl" required>
+        <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
+      </mat-form-field>
+      <button mat-raised-button [disabled]="passwordLengthControl.invalid ? '' : null">Change</button>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="settings-section">
+    <p>Change master password</p>
+    <div class="settings-row">
+      <mat-form-field color="primary">
+        <input matInput placeholder="Current password" type="password" [formControl]="origPasswordControl" required>
+        <mat-error *ngIf="origPasswordControl.invalid">{{getPasswordError(origPasswordControl)}}</mat-error>
+      </mat-form-field>
+      <!--TODO: give warning about wrong password-->
+    </div>
+    <div class="settings-row">
+      <mat-form-field color="primary">
+        <input matInput placeholder="New password" type="password" [formControl]="passwordControl" required>
+        <mat-error *ngIf="passwordControl.invalid">{{getPasswordError(passwordControl)}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="settings-row">
+      <mat-form-field color="primary">
+        <input matInput placeholder="New password" type="password" [formControl]="passwordIdenticalControl" required>
+        <mat-error *ngIf="passwordIdenticalControl.invalid">{{getPasswordIdenticalError()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button [disabled]="passwordControl.invalid && passwordIdenticalControl.invalid ? '' : null">Change</button>
+    <mat-divider></mat-divider>
+  </div>
 </div>

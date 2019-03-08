@@ -7,7 +7,8 @@ import {SettingsComponent} from "./settings/settings.component";
 const routes: Routes = [
   {path: 'new', component: NewPasswordComponent},
   {path: 'load', component: LoadPasswordComponent},
-  {path: 'settings', component: SettingsComponent}
+  {path: 'settings', component: SettingsComponent},
+  {path: '', redirectTo: '/load', pathMatch: 'full'},
 ];
 
 @NgModule({

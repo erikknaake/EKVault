@@ -1,0 +1,14 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings-row button {
+  height: 100%;
+}

@@ -12,7 +12,7 @@ export class EncrypterService {
     return CRYPTOJS.AES.encrypt(data, key).toString();
   }
 
-  public static decrypt(data:string, key: string): string {
+  public static decrypt(data: string, key: string): string {
     return CRYPTOJS.AES.decrypt(data, key).toString(CRYPTOJS.enc.Utf8);
   }
 }
