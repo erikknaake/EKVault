@@ -1,0 +1,12 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)" class="authenticate">
+  <div mat-dialog-content>
+    <h1 mat-dialog-title>Enter master password</h1>
+    <mat-form-field>
+      <input matInput formControlName="masterPassword" placeholder="Masterpassword">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-button  cdkFocusInitial type="submit">Ok</button>
+  </div>
+</form>

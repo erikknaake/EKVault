@@ -57,7 +57,7 @@ export class EncryptableDataService {
    */
   public decrypt(encryptableData: string, key: string): EncryptableDataService {
     this._paddingSize = parseInt(encryptableData.substr(0, this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), this.RADIX);
-    const decrypted: string = EncrypterService.decrypt(encryptableData, key);
+    const decrypted: string = EncrypterService.decrypt(encryptableData.substr(this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length - this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), key);
     this._data = decrypted.substr(this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, decrypted.length - this.paddingSize);
     this.updatePadding();
     return this;
@@ -71,8 +71,13 @@ export class EncryptableDataService {
   public static fromString(encryptableData: string, key: string): EncryptableDataService {
     let result: EncryptableDataService = new EncryptableDataService();
     result._paddingSize = parseInt(encryptableData.substr(0, result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), result.RADIX);
-    const decrypted: string = EncrypterService.decrypt(encryptableData, key);
-    result._data = decrypted.substr(result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, decrypted.length - result.paddingSize);
+    console.log('padding size: ', result._paddingSize);
+    const decrypted: string = EncrypterService.decrypt(encryptableData.substr(result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length), key);
+    console.log('decrypted: ', decrypted);
+    result._data = decrypted.substr(result, decrypted.length - result._paddingSize);
+    console.log('- padding: ', result._data);
+    if(result._data === "")
+      result._data = "[]";
     result.updatePadding();
     return result;
   }

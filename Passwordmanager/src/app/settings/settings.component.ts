@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CurrentSettingsService} from "../current-settings.service";
+import {CurrentSettingsService} from "../shared/current-settings.service";
 import {FormControl, Validators} from "@angular/forms";
 import {
   containsLowerCase,
@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
   public origPasswordControl = this.getPasswordFormControl();
   public passwordIdenticalControl = new FormControl('', [
     Validators.required,
-    identical(this.passwordControl.value.toString())
+    identical(this.passwordControl)
   ]);
 
   constructor(private readonly settingsService: CurrentSettingsService) { }
@@ -60,7 +60,6 @@ export class SettingsComponent implements OnInit {
   }
 
   public getPasswordError(control: FormControl): string {
-    console.log('one: ', control.value);
     if(control.hasError('required')) {
       return 'You must enter a value';
     } else if (control.hasError('maxlength')) {
@@ -77,7 +76,6 @@ export class SettingsComponent implements OnInit {
   }
 
   public getPasswordIdenticalError(): string {
-    console.log('identical: ', this.passwordIdenticalControl.value);
     if(this.passwordIdenticalControl.hasError('required')) {
       return 'You must enter a value';
     } else if(this.passwordIdenticalControl.hasError('identical')) {
