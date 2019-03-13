@@ -3,7 +3,7 @@
  * You can add your own extra polyfills to this file.
  *
  * This file is divided into 2 sections:
- *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
+ *   1. Window polyfills. These are applied before loading ZoneJS and are sorted by browsers.
  *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
  *      file.
  *
@@ -48,7 +48,7 @@
 // import 'core-js/es6/reflect';
 
 /**
- * Web Animations `@angular/platform-browser/animations`
+ * Web Animations `@angular/platform-window/animations`
  * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
  * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
  **/

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {CSPRNGService} from "../Crypto/csprng.service";
-import {CurrentSettingsService} from "../shared/current-settings.service";
+import {CSPRNGService} from "../../Crypto/csprng.service";
+import {CurrentSettingsService} from "../../settings/current-settings.service";
 import {MatSnackBar} from "@angular/material";
 import {Clipboard} from 'ts-clipboard';
-import {PasswordFileService} from "../shared/password-file.service";
+import {PasswordFileService} from "../../shared/password-file.service";
 @Component({
   selector: 'app-new-password',
   templateUrl: './new-master-password-popup.component.html',

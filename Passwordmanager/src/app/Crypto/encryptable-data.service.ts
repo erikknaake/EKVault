@@ -71,11 +71,8 @@ export class EncryptableDataService {
   public static fromString(encryptableData: string, key: string): EncryptableDataService {
     let result: EncryptableDataService = new EncryptableDataService();
     result._paddingSize = parseInt(encryptableData.substr(0, result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), result.RADIX);
-    console.log('padding size: ', result._paddingSize);
     const decrypted: string = EncrypterService.decrypt(encryptableData.substr(result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length), key);
-    console.log('decrypted: ', decrypted);
-    result._data = decrypted.substr(result, decrypted.length - result._paddingSize);
-    console.log('- padding: ', result._data);
+    result._data = decrypted.substr(0, decrypted.length - result._paddingSize);
     if(result._data === "")
       result._data = "[]";
     result.updatePadding();

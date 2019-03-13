@@ -12,13 +12,11 @@ describe('CSPRNGService', () => {
 
   it('should output correct length', () => {
     const randomString = CSPRNGService.generateCSPRNG(21);
-    console.log(randomString);
     expect(randomString.length).toEqual(21)
   });
 
   it('should output correct length', () => {
     const randomString = CSPRNGService.generateCSPRNG(20);
-    console.log(randomString);
     expect(randomString.length).toEqual(20)
   });
 });

@@ -9,8 +9,8 @@ import {MatDialogRef} from "@angular/material";
 })
 export class AuthenticatePopupComponent implements OnInit {
 
-  private form: FormGroup;
-  constructor(private readonly dialogRef: MatDialogRef<AuthenticatePopupComponent>, private readonly formBuilder: FormBuilder) { }
+  public form: FormGroup;
+  constructor(public readonly dialogRef: MatDialogRef<AuthenticatePopupComponent>, private readonly formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -19,7 +19,7 @@ export class AuthenticatePopupComponent implements OnInit {
   }
 
   public submit(form): void {
-    console.log(form.value.masterPassword);
     this.dialogRef.close(form.value.masterPassword);
   }
 }
+

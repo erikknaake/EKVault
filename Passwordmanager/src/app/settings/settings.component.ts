@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CurrentSettingsService} from "../shared/current-settings.service";
+import {CurrentSettingsService} from "./current-settings.service";
 import {FormControl, Validators} from "@angular/forms";
 import {
   containsLowerCase,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material";
-import {NewMasterPasswordPopupComponent} from "../new-master-password-popup/new-master-password-popup.component";
+import {NewMasterPasswordPopupComponent} from "./new-master-password-popup.component";
 
 @Injectable({
   providedIn: 'root'

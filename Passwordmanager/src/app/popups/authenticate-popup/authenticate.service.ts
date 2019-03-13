@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {AuthenticatePopupComponent} from "./authenticate-popup.component";
 import {Observable} from "rxjs";
-import {MatConfigService} from "../mat-config.service";
+import {MatConfigService} from "../snackbar/mat-config.service";
 
 @Injectable({
   providedIn: 'root'

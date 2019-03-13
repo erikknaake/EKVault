@@ -3,7 +3,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NewMasterPasswordPopupComponent} from './new-master-password-popup/new-master-password-popup.component';
+import {NewMasterPasswordPopupComponent} from './popups/new-master-password-popup/new-master-password-popup.component';
 import {LoadPasswordComponent} from './load-password/load-password.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -11,8 +11,10 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {NavigationComponent} from './navigation/navigation.component';
 import {MaterialMdsModule} from "./material-mds";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AuthenticatePopupComponent} from './authenticate-popup/authenticate-popup.component';
+import {AuthenticatePopupComponent} from './popups/authenticate-popup/authenticate-popup.component';
 import {NewPasswordComponent} from './new-password/new-password.component';
+import {getTabs} from "./shared/Window";
+import {urlParse} from "./shared/URL_parser";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import {NewPasswordComponent} from './new-password/new-password.component';
     BrowserAnimationsModule,
     MaterialMdsModule
   ],
-  providers: [],
+  providers: [{provide: 'tabs', useFactory: getTabs}],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [AuthenticatePopupComponent]
