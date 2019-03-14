@@ -10,6 +10,6 @@ export class SnackbarService {
   constructor(private readonly snackbar: MatSnackBar, private readonly matconfig: MatConfigService) { }
 
   public open(text: string, action: string): MatSnackBarRef<any> {
-    return this.snackbar.open(text, action, this.matconfig.getMatConfig());
+    return this.snackbar.open(text, action, this.matconfig.getMatSnackBarConfig());
   }
 }

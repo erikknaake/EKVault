@@ -1,6 +1,6 @@
-import {PasswordDTO} from "./PasswordDTO";
+import {IPassword} from "./IPassword";
 
 export interface IDecryptedPasswords {
-  passwords: PasswordDTO[];
+  passwords: IPassword[];
   masterPassword: string;
 }

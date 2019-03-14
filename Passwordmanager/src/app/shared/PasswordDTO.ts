@@ -1,31 +1,10 @@
-export class PasswordDTO {
-  get password(): string {
-    return this._password;
-  }
+import {IPassword} from "./IPassword";
 
-  set password(value: string) {
-    this._password = value;
-  }
+export class PasswordDTO implements IPassword{
 
-  get domain(): string {
-    return this._domain;
-  }
-
-  set domain(value: string) {
-    this._domain = value;
-  }
-
-  get username(): string {
-    return this._username;
-  }
-
-  set username(value: string) {
-    this._username = value;
-  }
-
-  private _password: string;
-  private _domain: string;
-  private _username: string;
+  public password: string;
+  public domain: string;
+  public username: string;
 
   constructor(domain: string, password: string, username: string) {
     this.domain = domain;

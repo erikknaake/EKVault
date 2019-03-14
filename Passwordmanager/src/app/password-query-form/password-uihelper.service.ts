@@ -1,17 +1,18 @@
-import {ApplicationRef, Injectable, OnInit} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Clipboard} from "ts-clipboard";
-import {CurrentSettingsService} from "../settings/current-settings.service";
-import {DomainService} from "./domain.service";
+import {SettingsService} from "../settings/settings.service";
+import {DomainService} from "../shared/domain.service";
+import {CSPRNGService} from "../Crypto/csprng.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PasswordUIHelperService implements OnInit{
+export class PasswordUIHelperService implements OnInit {
 
 
-  public static readonly VISIBLE_PASSWORD_VISIBILITY = 'visibility';
+  public static readonly VISIBLE_PASSWORD_VISIBILITY = 'visibility_off';
   public static readonly VISIBLE_PASSWORD_INPUT_TYPE = 'text';
-  public static readonly HIDDEN_PASSWORD_VISIBILITY = 'visibility_off';
+  public static readonly HIDDEN_PASSWORD_VISIBILITY = 'visibility';
   public static readonly HIDDEN_PASSWORD_INPUT_TYPE = 'password';
 
   private _selectedUsername: string;
@@ -19,7 +20,24 @@ export class PasswordUIHelperService implements OnInit{
   private _passwordVisibility: string;
   private _passwordInputType: string;
   private _domain: string;
+  private _title: string;
+  private _passwordLabel: string;
 
+  get passwordLabel(): string {
+    return this._passwordLabel;
+  }
+
+  set passwordLabel(value: string) {
+    this._passwordLabel = value;
+  }
+
+  get title(): string {
+    return this._title;
+  }
+
+  set title(value: string) {
+    this._title = value;
+  }
 
   get selectedUsername(): string {
     return this._selectedUsername;
@@ -61,21 +79,22 @@ export class PasswordUIHelperService implements OnInit{
     this._domain = value;
   }
 
-  constructor(private readonly settings: CurrentSettingsService,
+  constructor(private readonly settings: SettingsService,
               private readonly domainService: DomainService) {
-    //Init passwordVisibility in constructor so depended mat-icons are visible when first loaded in
-    this._passwordVisibility = PasswordUIHelperService.HIDDEN_PASSWORD_VISIBILITY;
-    // Init selectedUsername in constructor so select input can have preselected defaults
-    this._selectedUsername = this.settings.defaultUserName;
     // Init selectedUsername in constructor so text inputs can have preset defaults
     this.domainService.getDomain().then((domain) => {
       this._domain = domain;
     });
+    //Init passwordVisibility in constructor so depended mat-icons are visible when first loaded in
+    this._passwordVisibility = PasswordUIHelperService.HIDDEN_PASSWORD_VISIBILITY;
+    // Init selectedUsername in constructor so select input can have preselected defaults
+    this._selectedUsername = this.settings.defaultUserName;
+    this._passwordInputType = PasswordUIHelperService.HIDDEN_PASSWORD_INPUT_TYPE;
+    this._password = '';
   }
 
   ngOnInit() {
-    this._passwordInputType = PasswordUIHelperService.HIDDEN_PASSWORD_INPUT_TYPE;
-    this._password = '';
+
   }
 
   public getUsernames(): string[] {
@@ -94,5 +113,9 @@ export class PasswordUIHelperService implements OnInit{
 
   public copyPassword(): void {
     Clipboard.copy(this._password);
+  }
+
+  public generatePassword(): string {
+    return CSPRNGService.generateCSPRNG(this.settings.passwordLength);
   }
 }

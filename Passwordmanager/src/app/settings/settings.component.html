@@ -1,15 +1,30 @@
 <div class="settings">
   <div class="settings-section">
     <div class="settings-row">
-      <mat-form-field color="primary">
-        <input matInput placeholder="Password length" type="number" value="{{getPasswordLength()}}" [formControl]="passwordLengthControl" required>
+      <mat-form-field>
+        <input matInput placeholder="Password length" type="number" value="{{this.settings.passwordLength}}" [formControl]="passwordLengthControl" #passwordLength required>
         <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
       </mat-form-field>
-      <button mat-raised-button [disabled]="passwordLengthControl.invalid ? '' : null">Change</button>
+      <button mat-raised-button [disabled]="passwordLengthControl.invalid ? '' : null" (click)="this.settings.passwordLength = passwordLength.value">Change</button>
     </div>
     <mat-divider></mat-divider>
   </div>
 
+  <div class="settings-section">
+    <div class="settings-row">
+      <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
+      <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-row">
+      <button mat-raised-button (click)="importSettings()">Import Settings</button>
+      <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
   <div class="settings-section">
     <p>Change master password</p>
     <div class="settings-row">

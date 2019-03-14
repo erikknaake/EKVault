@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MatDialogConfig} from "@angular/material";
+import {MatDialogConfig, MatSnackBarConfig} from "@angular/material";
 
 @Injectable({
   providedIn: 'root'
@@ -10,5 +10,9 @@ export class MatConfigService {
 
   public getMatConfig(): MatDialogConfig {
     return {width: '25em', height: '14em', hasBackdrop: true};
+  }
+
+  public getMatSnackBarConfig(): MatSnackBarConfig {
+    return {duration: 5000}
   }
 }

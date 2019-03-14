@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CurrentSettingsService} from "./current-settings.service";
+import {SettingsService} from "./settings.service";
 import {FormControl, Validators} from "@angular/forms";
 import {
   containsLowerCase,
@@ -7,6 +7,9 @@ import {
   containsUpperCase,
   identical
 } from "../shared/validators/password-validators";
+import { saveAs } from 'file-saver';
+import {PasswordFileService} from "../shared/password-file.service";
+import {UploadFileService} from "../popups/upload-file-popup/upload-file.service";
 
 @Component({
   selector: 'app-settings',
@@ -29,7 +32,9 @@ export class SettingsComponent implements OnInit {
     identical(this.passwordControl)
   ]);
 
-  constructor(private readonly settingsService: CurrentSettingsService) { }
+  constructor(public readonly settings: SettingsService,
+              private readonly passwordFile: PasswordFileService,
+              private readonly uploadService: UploadFileService) { }
 
   ngOnInit() {
   }
@@ -43,10 +48,6 @@ export class SettingsComponent implements OnInit {
       containsLowerCase(),
       containsUpperCase()
     ]);
-  }
-
-  public getPasswordLength(): number {
-    return this.settingsService.passwordLength;
   }
 
   public getPasswordLengthError(): string {
@@ -83,5 +84,21 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  public importPasswords(): void {
+    this.uploadService.requestfile('.enc', 'Password backup').then((file) => {
+      this.passwordFile.restorePasswords(file.file.value); //TODO: make interface to DIP this
+    });
+  }
 
+  public exportPasswords(): void {
+    saveAs(new Blob([this.passwordFile.getAllEncryptedPasswords()], {type: 'text/plain'}), 'Password backup.enc', true);
+  }
+
+  public importSettings(): void {
+
+  }
+
+  public exportSettings(): void {
+
+  }
 }
