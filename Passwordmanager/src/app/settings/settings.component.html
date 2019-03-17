@@ -1,52 +1,64 @@
 <div class="settings">
-  <div class="settings-section">
-    <div class="settings-row">
-      <mat-form-field>
-        <input matInput placeholder="Password length" type="number" value="{{this.settings.passwordLength}}" [formControl]="passwordLengthControl" #passwordLength required>
-        <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
-      </mat-form-field>
-      <button mat-raised-button [disabled]="passwordLengthControl.invalid ? '' : null" (click)="this.settings.passwordLength = passwordLength.value">Change</button>
-    </div>
-    <mat-divider></mat-divider>
-  </div>
+  <mat-card class="settings-container">
+    <h1 class="mat-h1">Settings</h1>
 
-  <div class="settings-section">
-    <div class="settings-row">
-      <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
-      <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
-    </div>
-    <mat-divider></mat-divider>
-  </div>
+    <div class="settings-section">
+      <h2 class="mat-h2">Password generation</h2>
+        <mat-form-field>
+          <input matInput placeholder="Password length" type="number" [formControl]="passwordLengthControl" #passwordLength required>
+          <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
+        </mat-form-field>
 
-  <div class="settings-section">
-    <div class="settings-row">
-      <button mat-raised-button (click)="importSettings()">Import Settings</button>
-      <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+        <app-change-alphabet class="settings-row"></app-change-alphabet>
+      <div class="column">
+        <button mat-raised-button (click)="discardSettings()">Discard changes</button>
+        <button mat-raised-button (click)="saveSettings()">Save changes</button>
+        <button mat-raised-button (click)="restoreDefaultSettings()">Restore defaults</button>
+      </div>
+      <mat-divider></mat-divider>
     </div>
-    <mat-divider></mat-divider>
-  </div>
-  <div class="settings-section">
-    <p>Change master password</p>
-    <div class="settings-row">
-      <mat-form-field color="primary">
-        <input matInput placeholder="Current password" type="password" [formControl]="origPasswordControl" required>
-        <mat-error *ngIf="origPasswordControl.invalid">{{getPasswordError(origPasswordControl)}}</mat-error>
-      </mat-form-field>
-      <!--TODO: give warning about wrong password-->
+
+
+    <div class="settings-section">
+      <p>Change master password</p>
+      <div class="settings-row">
+        <mat-form-field color="primary">
+          <input matInput placeholder="Current password" type="password" [formControl]="origPasswordControl" required>
+          <mat-error *ngIf="origPasswordControl.invalid">{{getPasswordError(origPasswordControl)}}</mat-error>
+        </mat-form-field>
+        <!--TODO: give warning about wrong password-->
+      </div>
+      <div class="settings-row">
+        <mat-form-field color="primary">
+          <input matInput placeholder="New password" type="password" [formControl]="passwordControl" required>
+          <mat-error *ngIf="passwordControl.invalid">{{getPasswordError(passwordControl)}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="settings-row">
+        <mat-form-field color="primary">
+          <input matInput placeholder="New password" type="password" [formControl]="passwordIdenticalControl" required>
+          <mat-error *ngIf="passwordIdenticalControl.invalid">{{getPasswordIdenticalError()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button [disabled]="passwordControl.invalid && passwordIdenticalControl.invalid ? '' : null">Change</button>
+      <mat-divider></mat-divider>
     </div>
-    <div class="settings-row">
-      <mat-form-field color="primary">
-        <input matInput placeholder="New password" type="password" [formControl]="passwordControl" required>
-        <mat-error *ngIf="passwordControl.invalid">{{getPasswordError(passwordControl)}}</mat-error>
-      </mat-form-field>
+
+    <div class="settings-section">
+      <h2 class="mat-h2">Import/Export</h2>
+      <div class="settings-row">
+        <div class="settings-column">
+          <h3 class="mat-h3">Password</h3>
+          <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
+          <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
+        </div>
+        <div class="settings-column">
+          <h3 class="mat-h3">Settings</h3>
+          <button mat-raised-button (click)="importSettings()">Import Settings</button>
+          <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
     </div>
-    <div class="settings-row">
-      <mat-form-field color="primary">
-        <input matInput placeholder="New password" type="password" [formControl]="passwordIdenticalControl" required>
-        <mat-error *ngIf="passwordIdenticalControl.invalid">{{getPasswordIdenticalError()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <button mat-raised-button [disabled]="passwordControl.invalid && passwordIdenticalControl.invalid ? '' : null">Change</button>
-    <mat-divider></mat-divider>
-  </div>
+  </mat-card>
 </div>

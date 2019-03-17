@@ -11,12 +11,12 @@ describe('CSPRNGService', () => {
   });
 
   it('should output correct length', () => {
-    const randomString = CSPRNGService.generateCSPRNG(21);
+    const randomString = CSPRNGService.generateCSPRN(21);
     expect(randomString.length).toEqual(21)
   });
 
   it('should output correct length', () => {
-    const randomString = CSPRNGService.generateCSPRNG(20);
+    const randomString = CSPRNGService.generateCSPRN(20);
     expect(randomString.length).toEqual(20)
   });
 });

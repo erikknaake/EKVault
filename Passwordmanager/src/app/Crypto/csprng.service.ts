@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {AlphabetService} from "../shared/alphabet.service";
+
 declare let require;
-const nanoid = require('nanoid');
+const generate = require('nanoid/generate');
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +10,7 @@ export class CSPRNGService {
 
   constructor() { }
 
-  public static generateCSPRNG(size: number): string {
-    return nanoid(size);
+  public static generateCSPRN(size: number): string {
+    return generate(AlphabetService.getAlphabet(), size);
   }
 }

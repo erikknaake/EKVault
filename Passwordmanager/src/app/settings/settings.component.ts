@@ -10,6 +10,7 @@ import {
 import { saveAs } from 'file-saver';
 import {PasswordFileService} from "../shared/password-file.service";
 import {UploadFileService} from "../popups/upload-file-popup/upload-file.service";
+import {IFile} from "../shared/IFile";
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +18,7 @@ import {UploadFileService} from "../popups/upload-file-popup/upload-file.service
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+
   private readonly MAX_PASSWORD_LENGTH = 128;
   private readonly MIN_PASSWORD_LENGTH = 8;
 
@@ -37,6 +39,7 @@ export class SettingsComponent implements OnInit {
               private readonly uploadService: UploadFileService) { }
 
   ngOnInit() {
+    this.passwordLengthControl.setValue(this.settings.passwordLength);
   }
 
   private getPasswordFormControl(): FormControl {
@@ -85,8 +88,9 @@ export class SettingsComponent implements OnInit {
   }
 
   public importPasswords(): void {
-    this.uploadService.requestfile('.enc', 'Password backup').then((file) => {
-      this.passwordFile.restorePasswords(file.file.value); //TODO: make interface to DIP this
+    this.uploadService.requestfile('.enc', 'Password backup').then((file: IFile) => {
+      this.passwordFile.restorePasswords(file.file.value);
+      //TODO: make interface to DIP this
     });
   }
 
@@ -100,5 +104,19 @@ export class SettingsComponent implements OnInit {
 
   public exportSettings(): void {
 
+  }
+
+  public saveSettings(): void {
+    this.settings.passwordLength = this.passwordLengthControl.value;
+    this.settings.save();
+  }
+
+  public discardSettings(): void {
+    this.settings.load();
+  }
+
+  public restoreDefaultSettings(): void {
+    this.settings.setDefault();
+    this.settings.save();
   }
 }

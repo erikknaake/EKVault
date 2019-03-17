@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {EncrypterService} from "./encrypter.service";
 import {CSPRNGService} from "./csprng.service";
 
@@ -14,7 +14,8 @@ export class EncryptableDataService {
   private readonly PADDING_SIZE_IDENTIFIER_NUM_DIGITS: number = 3;
   private readonly RADIX: number = 10;
 
-  constructor() { }
+  constructor() {
+  }
 
   get data(): string {
     return this._data;
@@ -35,7 +36,7 @@ export class EncryptableDataService {
 
   private updatePadding(): void {
     this._paddingSize = this.data.length % this.MAX_PADDING_SIZE;
-    this._padding = CSPRNGService.generateCSPRNG(this.paddingSize);
+    this._padding = CSPRNGService.generateCSPRN(this.paddingSize);
   }
 
   public toString(): string {
@@ -73,7 +74,7 @@ export class EncryptableDataService {
     result._paddingSize = parseInt(encryptableData.substr(0, result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), result.RADIX);
     const decrypted: string = EncrypterService.decrypt(encryptableData.substr(result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length), key);
     result._data = decrypted.substr(0, decrypted.length - result._paddingSize);
-    if(result._data === "")
+    if (result._data === "")
       result._data = "[]";
     result.updatePadding();
     return result;
@@ -81,7 +82,7 @@ export class EncryptableDataService {
 
   private makeNumberFixedLengthString(data: number, length: number): string {
     let result: string = data.toString(this.RADIX);
-    while(result.length < this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS)
+    while (result.length < this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS)
       result = "0" + result;
     return result;
   }

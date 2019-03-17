@@ -10,6 +10,8 @@ import {NavigationEnd, Router, RouterEvent} from "@angular/router";
 })
 export class PasswordQueryFormComponent implements OnInit {
 
+  public passwordStrength: number;
+
   constructor(public readonly passwordUIHelper: PasswordUIHelperService,
               public settings: SettingsService,
               private readonly router: Router) { }
@@ -26,5 +28,8 @@ export class PasswordQueryFormComponent implements OnInit {
     })
   }
 
+  public onStrengthChanged(strength: number) {
+    this.passwordStrength = strength;
+  }
 
 }

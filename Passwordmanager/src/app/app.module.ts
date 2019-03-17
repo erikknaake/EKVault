@@ -17,7 +17,7 @@ import {LoadPasswordComponent} from "./password-query-form/load-password/load-pa
 import {PasswordQueryFormComponent} from "./password-query-form/password-query-form.component";
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import {UploadFilePopupComponent} from "./popups/upload-file-popup/upload-file-popup.component";
-
+import {ChangeAlphabetComponent} from "./settings/change-alphabet/change-alphabet.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +30,8 @@ import {UploadFilePopupComponent} from "./popups/upload-file-popup/upload-file-p
     NewPasswordComponent,
     LoadPasswordComponent,
     PasswordQueryFormComponent,
-    UploadFilePopupComponent
+    UploadFilePopupComponent,
+    ChangeAlphabetComponent
   ],
   imports: [
     BrowserModule,

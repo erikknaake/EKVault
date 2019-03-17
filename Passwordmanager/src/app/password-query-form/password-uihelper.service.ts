@@ -116,6 +116,6 @@ export class PasswordUIHelperService implements OnInit {
   }
 
   public generatePassword(): string {
-    return CSPRNGService.generateCSPRNG(this.settings.passwordLength);
+    return CSPRNGService.generateCSPRN(this.settings.passwordLength);
   }
 }
