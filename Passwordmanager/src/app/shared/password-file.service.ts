@@ -6,6 +6,7 @@ import {EncryptableDataService} from "../Crypto/encryptable-data.service";
 import {IDecryptedPasswords} from "./IDecryptedPasswords";
 import {SnackbarService} from "../popups/snackbar/snackbar.service";
 import {IPassword} from "./IPassword";
+import {IPasswordChange} from "./IPasswordChange";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,6 @@ export class PasswordFileService {
   constructor(private readonly authenticateService: AuthenticateService,
               private readonly newMasterPasswordService: NewMasterPasswordService,
               private readonly snackbar: SnackbarService) {
-    if(localStorage.getItem(this.storageKey) == null)
-      localStorage.setItem(this.storageKey, '');
   }
 
   public getPassword(domain: string, username: string): Promise<string> {
@@ -69,11 +68,7 @@ export class PasswordFileService {
   private loadPasswords(): Promise<IDecryptedPasswords> {
     return new Promise<IDecryptedPasswords>((resolve, reject) => {
       this.requestAuthentication().then((masterPassword) => {
-        const storagePasswords: string = localStorage.getItem(this.storageKey);
-        const decryptedPasswords = EncryptableDataService.fromString(storagePasswords == null ? "" : storagePasswords, masterPassword);
-        const parsedPasswords = (JSON.parse(decryptedPasswords.data) as IPassword[]);
-        const result: IDecryptedPasswords = {passwords: parsedPasswords, masterPassword: masterPassword};
-        resolve(result);
+        resolve(this.decryptStorage(masterPassword));
       }).catch((reason) => {
         console.log('catch: ', reason);
         this.snackbar.open('Masterpassword is incorrect', 'Ok');
@@ -82,12 +77,11 @@ export class PasswordFileService {
     });
   }
 
-  public updateMasterPassword(): void {
-    const passwords = this.loadPasswords().then((passwords: IDecryptedPasswords) => {
-      this.requestNewMasterPassword().then((newMasterPassword: string) => {
-        this.storePasswords({passwords: passwords.passwords, masterPassword: newMasterPassword});
-      });
-    }).catch(() => {});
+  private decryptStorage(masterPassword): IDecryptedPasswords {
+    const storagePasswords: string = this.getAllEncryptedPasswords();
+    const decryptedPasswords = EncryptableDataService.fromString(storagePasswords == null ? "" : storagePasswords, masterPassword);
+    const parsedPasswords = (JSON.parse(decryptedPasswords.data) as IPassword[]);
+    return {passwords: parsedPasswords, masterPassword: masterPassword};
   }
 
   public getAllEncryptedPasswords(): string {
@@ -102,7 +96,16 @@ export class PasswordFileService {
     return this.authenticateService.requestMasterPassword()
   }
 
-  private requestNewMasterPassword(): Promise<string> {
-    return this.newMasterPasswordService.requestMasterPassword();
+  public requestNewMasterPassword(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.newMasterPasswordService.requestMasterPassword().then((passwords: IPasswordChange) => {
+        const decryptedPasswords: IDecryptedPasswords = this.decryptStorage(passwords.oldPassword);
+        decryptedPasswords.masterPassword = passwords.newPassword;
+        this.storePasswords(decryptedPasswords);
+        resolve(true);
+      }).catch(() => {
+        reject(false);
+      });
+    });
   }
 }

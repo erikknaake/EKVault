@@ -26,6 +26,8 @@ export class LoadPasswordComponent implements OnInit {
       this.snackbar.open('Password loaded', 'Copy to clipboard').onAction().subscribe(() => {
         this.passwordUIHelper.copyPassword();
       })
+    }).catch((reason) => {
+      this.snackbar.open('Incorrect masterpassword, or no passwords in vault', 'Ok');
     });
   }
 }
