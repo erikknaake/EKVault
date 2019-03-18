@@ -9,6 +9,6 @@ export class AlphabetService {
   constructor() { }
 
   public static getAlphabet(): string {
-    return JSON.parse(localStorage.getItem(SettingsService.STORAGE_KEY))._alphabet._value;
+    return JSON.parse(localStorage.getItem(SettingsService.STORAGE_KEY)).alphabet;
   }
 }

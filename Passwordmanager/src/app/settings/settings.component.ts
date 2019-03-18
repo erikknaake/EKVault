@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 import {PasswordFileService} from "../shared/password-file.service";
 import {UploadFileService} from "../popups/upload-file-popup/upload-file.service";
 import {IFile} from "../shared/IFile";
+import {SnackbarService} from "../popups/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-settings',
@@ -36,7 +37,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(public readonly settings: SettingsService,
               private readonly passwordFile: PasswordFileService,
-              private readonly uploadService: UploadFileService) { }
+              private readonly uploadService: UploadFileService,
+              private readonly snackbar: SnackbarService) { }
 
   ngOnInit() {
     this.passwordLengthControl.setValue(this.settings.passwordLength.value);
@@ -90,7 +92,6 @@ export class SettingsComponent implements OnInit {
   public importPasswords(): void {
     this.uploadService.requestfile('.enc', 'Password backup').then((file: IFile) => {
       this.passwordFile.restorePasswords(file.file.value);
-      //TODO: make interface to DIP this
     });
   }
 
@@ -99,24 +100,31 @@ export class SettingsComponent implements OnInit {
   }
 
   public importSettings(): void {
-
+    this.uploadService.requestfile('.json', 'Settings backup').then((file: IFile) => {
+      this.settings.restoreJSON(file.file.value);
+      this.snackbar.open('Restored settings', 'Ok');
+    });
   }
 
   public exportSettings(): void {
-
+    saveAs(new Blob([this.settings.toJSON()], {type: 'text/plain'}), 'Settings.json', true);
   }
 
   public saveSettings(): void {
     this.settings.passwordLengthValue = this.passwordLengthControl.value;
     this.settings.save();
+    this.snackbar.open('Saved settings', 'Ok')
   }
 
   public discardSettings(): void {
     this.settings.load();
+    this.snackbar.open('Discarded changes', 'Ok');
   }
 
   public restoreDefaultSettings(): void {
     this.settings.setDefault();
     this.settings.save();
+    this.snackbar.open('Restored defaults', 'Ok');
   }
+
 }

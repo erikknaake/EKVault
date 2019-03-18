@@ -88,7 +88,7 @@ export class PasswordUIHelperService implements OnInit {
     //Init passwordVisibility in constructor so depended mat-icons are visible when first loaded in
     this._passwordVisibility = PasswordUIHelperService.HIDDEN_PASSWORD_VISIBILITY;
     // Init selectedUsername in constructor so select input can have preselected defaults
-    this._selectedUsername = this.settings.defaultUserName.value;
+    this._selectedUsername = this.settings.defaultUsername.value;
     this._passwordInputType = PasswordUIHelperService.HIDDEN_PASSWORD_INPUT_TYPE;
     this._password = '';
   }
