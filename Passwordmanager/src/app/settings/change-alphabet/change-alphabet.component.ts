@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from "../settings.service";
 import {FormControl, Validators} from "@angular/forms";
 import {noDoubleCharacters, noJSON} from "../../shared/validators/alphabet-validators";
@@ -9,14 +9,17 @@ import {ISlideToggleEvent} from "./ISlideToggleEvent";
   templateUrl: './change-alphabet.component.html',
   styleUrls: ['./change-alphabet.component.scss']
 })
-export class ChangeAlphabetComponent implements OnInit {
+export class ChangeAlphabetComponent implements OnInit, OnDestroy {
 
   public static readonly MIN_ALPHABET_LENGTH = 20;
-  public static readonly MAX_ALPHABET_LENGTH = 256; // After 256 Naniod becomes insecure
-  private containsAllCapitals: boolean = false;
-  private containsAllLetters: boolean = false;
-  private containsAllNumbers: boolean = false;
-  private containsAllSymbols: boolean = false;
+  public static readonly MAX_ALPHABET_LENGTH = 256; // After 256 Nanoid (CSPRNG) becomes insecure
+
+  private _containsAllCapitals: boolean = false;
+  private _containsAllLetters: boolean = false;
+  private _containsAllNumbers: boolean = false;
+  private _containsAllSymbols: boolean = false;
+
+  private alphabetSubscription: number;
 
   public alphabetControl = new FormControl('', [
     Validators.required,
@@ -26,21 +29,30 @@ export class ChangeAlphabetComponent implements OnInit {
     noDoubleCharacters()
   ]);
 
-  constructor(private readonly settings: SettingsService) { }
+  constructor(private readonly settings: SettingsService) {
+  }
 
   ngOnInit() {
     this.alphabetControl.valueChanges.subscribe((value: string) => {
-      this.settings.alphabet = value;
+      this.settings.alphabetValue = value;
+      // the alphabetObserverableValue makes sure this doesnt loop
       this.adjustSliders();
     });
-    this.alphabetControl.setValue(this.settings.alphabet);
+    this.alphabetSubscription = this.settings.alphabet.subscribe((value: string) => {
+      this.alphabetControl.setValue(this.settings.alphabet.value);
+    });
+    this.alphabetControl.setValue(this.settings.alphabet.value);
+  }
+
+  ngOnDestroy(): void {
+    this.settings.alphabet.unsubscribe(this.alphabetSubscription);
   }
 
   private adjustSliders() {
-    this.containsAllCapitals = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet, SettingsService.CAPITALS);
-    this.containsAllLetters = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet, SettingsService.LETTERS);
-    this.containsAllNumbers = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet, SettingsService.NUMBERS);
-    this.containsAllSymbols = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet, SettingsService.SYMBOLS);
+    this._containsAllCapitals = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet.value, SettingsService.CAPITALS);
+    this._containsAllLetters = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet.value, SettingsService.LETTERS);
+    this._containsAllNumbers = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet.value, SettingsService.NUMBERS);
+    this._containsAllSymbols = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet.value, SettingsService.SYMBOLS);
   }
 
   private static stringCharactersInString(str: string, part: string): boolean {
@@ -86,27 +98,44 @@ export class ChangeAlphabetComponent implements OnInit {
   }
 
   private findAndRemoveOrAdd(add: boolean, set: string): void {
-    this.settings.alphabet = this.settings.alphabet.replace(new RegExp(`(${set})`), '');
+    this.settings.alphabetValue = this.settings.alphabet.value.replace(new RegExp(`(${set})`), '');
     if (add)
-        this.settings.alphabet += set;
-    this.alphabetControl.setValue(this.settings.alphabet);
+        this.settings.alphabet.value += set;
+    this.alphabetControl.setValue(this.settings.alphabet.value);
   }
 
   // Since regex and special characters are hard to mix this more inefficient way should only be used to filter out special characters
   private findAndRemoveOrAddSymbols(add: boolean, symbols: string) {
     for(let i: number = 0; i < symbols.length; i++) {
-      for(let j: number = 0; j < this.settings.alphabet.length; j++) {
-        if(symbols[i] === this.settings.alphabet[j]) {
-          this.settings.alphabet = ChangeAlphabetComponent.removeCharacter(this.settings.alphabet, j);
+      for(let j: number = 0; j < this.settings.alphabet.value.length; j++) {
+        if(symbols[i] === this.settings.alphabet.value[j]) {
+          this.settings.alphabetValue = ChangeAlphabetComponent.removeCharacter(this.settings.alphabet.value, j);
         }
       }
     }
     if(add)
-      this.settings.alphabet += symbols;
-    this.alphabetControl.setValue(this.settings.alphabet);
+      this.settings.alphabet.value += symbols;
+    this.alphabetControl.setValue(this.settings.alphabet.value);
   }
 
   private static removeCharacter(str: string, index: number): string {
     return (str.substring(0, index) + str.substring(index + 1, str.length));
   }
+
+  get containsAllCapitals(): boolean {
+    return this._containsAllCapitals;
+  }
+
+  get containsAllLetters(): boolean {
+    return this._containsAllLetters;
+  }
+
+  get containsAllNumbers(): boolean {
+    return this._containsAllNumbers;
+  }
+
+  get containsAllSymbols(): boolean {
+    return this._containsAllSymbols;
+  }
+
 }

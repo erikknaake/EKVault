@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {ISettings} from "./ISettings";
+import {ObservableValue} from "../shared/ObservableValue";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService implements ISettings{
+export class SettingsService {
   public static readonly STORAGE_KEY = 'settings';
   public static readonly CAPITALS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   public static readonly LETTERS = 'abcdefghijklmnopqrstuvwxyz';
@@ -14,15 +14,15 @@ export class SettingsService implements ISettings{
   private static readonly DEFAULT_PASSWORD_LENGTH = 28;
   private static readonly DEFAULT_ALPHABET = SettingsService.CAPITALS + SettingsService.LETTERS + SettingsService.NUMBERS + SettingsService.SYMBOLS;
 
-  private _passwordLength: number;
-  private _defaultUserName: string;
-  private _usernames: string[];
-  private _alphabet: string;
+  private _passwordLength: ObservableValue<number> = new ObservableValue<number>();
+  private _defaultUserName: ObservableValue<string> = new ObservableValue<string>();
+  private _usernames: ObservableValue<string[]> = new ObservableValue<string[]>();
+  private _alphabet: ObservableValue<string> = new ObservableValue<string>();
 
   constructor() {
     this.load();
-    this._defaultUserName = "Erik";
-    this.usernames = [this._defaultUserName, "Test"];
+    this._defaultUserName.value = "Erik";
+    this._usernames.value = [this._defaultUserName.value, "Test"];
   } //TODO: make this better
 
   public save(): void {
@@ -31,7 +31,6 @@ export class SettingsService implements ISettings{
 
   public load(): void {
     let loaded = JSON.parse(localStorage.getItem(SettingsService.STORAGE_KEY));
-    console.log(loaded);
     if(loaded == null) {
       this.setDefault();
     } else {
@@ -44,53 +43,53 @@ export class SettingsService implements ISettings{
       if(loaded._alphabet == null) {
         loaded._alphabet = SettingsService.DEFAULT_ALPHABET;
       }
-      this._passwordLength = loaded._passwordLength;
-      this._alphabet = loaded._alphabet;
-      this._defaultUserName = loaded._defaultUserName;
-      this._usernames = loaded._usernames;
+      this._passwordLength.value = loaded._passwordLength._value;
+      this._alphabet.value = loaded._alphabet._value;
+      this._defaultUserName.value = loaded._defaultUserName._value;
+      this._usernames.value = loaded._usernames._value;
     }
     this.save();
   }
 
   public setDefault(): void {
-    this._passwordLength = SettingsService.DEFAULT_PASSWORD_LENGTH;
-    this._alphabet = SettingsService.DEFAULT_ALPHABET;
-    this._defaultUserName = null;
-    this._usernames = [];
+    this._passwordLength.value = SettingsService.DEFAULT_PASSWORD_LENGTH;
+    this._alphabet.value = SettingsService.DEFAULT_ALPHABET;
+    this._defaultUserName.value = null;
+    this._usernames.value = [];
   }
 
-  get alphabet(): string {
+  get alphabet(): ObservableValue<string> {
     return this._alphabet;
   }
 
-  set alphabet(value: string) {
-    this._alphabet = value;
+  set alphabetValue(value: string) {
+    this._alphabet.value = value;
   }
 
 
-  get passwordLength(): number {
+  get passwordLength(): ObservableValue<number> {
     return this._passwordLength;
   }
 
-  set passwordLength(value: number) {
-    this._passwordLength = value;
+  set passwordLengthValue(value: number) {
+    this._passwordLength.value = value;
   }
 
 
-  get usernames(): string[] {
+  get usernames(): ObservableValue<string[]> {
     return this._usernames;
   }
 
-  set usernames(value: string[]) {
-    this._usernames = value;
+  set usernamesValue(value: string[]) {
+    this._usernames.value = value;
   }
 
-  get defaultUserName(): string {
+  get defaultUserName(): ObservableValue<string> {
     return this._defaultUserName;
   }
 
-  set defaultUserName(value: string) {
-    this._defaultUserName = value;
+  set defaultUserNameValue(value: string) {
+    this._defaultUserName.value = value;
   }
 
 }

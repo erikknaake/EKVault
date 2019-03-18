@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
               private readonly uploadService: UploadFileService) { }
 
   ngOnInit() {
-    this.passwordLengthControl.setValue(this.settings.passwordLength);
+    this.passwordLengthControl.setValue(this.settings.passwordLength.value);
   }
 
   private getPasswordFormControl(): FormControl {
@@ -107,7 +107,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public saveSettings(): void {
-    this.settings.passwordLength = this.passwordLengthControl.value;
+    this.settings.passwordLengthValue = this.passwordLengthControl.value;
     this.settings.save();
   }
 

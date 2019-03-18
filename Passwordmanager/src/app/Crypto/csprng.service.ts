@@ -11,6 +11,7 @@ export class CSPRNGService {
   constructor() { }
 
   public static generateCSPRN(size: number): string {
+    console.log(AlphabetService.getAlphabet());
     return generate(AlphabetService.getAlphabet(), size);
   }
 }
