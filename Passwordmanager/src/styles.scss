@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .row {
   display: flex;
@@ -16,4 +18,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .column > button {
   margin-top: 2%;
+}
+
+@media only screen and (max-width: 30em) {
+  body {
+    width: 30em;
+    height: 60em;
+  }
 }

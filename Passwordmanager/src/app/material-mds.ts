@@ -5,7 +5,7 @@ import {
   MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
-  MatDatepickerModule, MatDividerModule,
+  MatDatepickerModule, MatDividerModule, MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -40,7 +40,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatInputModule,
     MatCheckboxModule,
     MatToolbarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatExpansionModule
   ],
   imports: [
     CommonModule,

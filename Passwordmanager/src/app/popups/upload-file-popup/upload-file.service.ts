@@ -15,10 +15,24 @@ export class UploadFileService {
               private readonly requestedExtension: RequestedFileExtensionService) {
   }
 
-  public requestfile(extension: string, label: string): Promise<IFile> {
+  private getFile(extension: string, label: string): Promise<IFile> {
     this.requestedExtension.extension = extension;
     this.requestedExtension.label = label;
     const dialogRef = this.matDialog.open(UploadFilePopupComponent, this.matConfigService.getMatConfig());
     return dialogRef.afterClosed().toPromise();
+  }
+
+  public requestfile(extension: string, label: string): Promise<IFile> {
+    return new Promise<IFile>(((resolve, reject) => {
+      this.getFile(extension, label).then((file: IFile) => {
+        if(file == null)
+          reject('No file given');
+        else resolve(file);
+      });
+    }));
+    // this.requestedExtension.extension = extension;
+    // this.requestedExtension.label = label;
+    // const dialogRef = this.matDialog.open(UploadFilePopupComponent, this.matConfigService.getMatConfig());
+    // return dialogRef.afterClosed().toPromise();
   }
 }

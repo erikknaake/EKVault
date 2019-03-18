@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable, Renderer2} from '@angular/core';
 import {ObservableValue} from "../shared/ObservableValue";
 import {ISettings} from "./ISettings";
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SettingsService {
   private _defaultUsername: ObservableValue<string> = new ObservableValue<string>();
   private _usernames: ObservableValue<string[]> = new ObservableValue<string[]>();
   private _alphabet: ObservableValue<string> = new ObservableValue<string>();
+  private _isDarkTheme: ObservableValue<boolean> = new ObservableValue<boolean>();
 
   constructor() {
     this.load();
@@ -39,7 +41,8 @@ export class SettingsService {
       alphabet: this.alphabet.value,
       passwordLength: this.passwordLength.value,
       defaultUsername: this.defaultUsername.value,
-      usernames: this.usernames.value
+      usernames: this.usernames.value,
+      isDarkTheme: this.isDarkTheme.value
     };
     return JSON.stringify(pureObject);
   }
@@ -49,19 +52,11 @@ export class SettingsService {
     if(loaded == null) {
       this.setDefault();
     } else {
-      if(loaded.passwordLength == null) {
-        loaded.passwordLength = SettingsService.DEFAULT_PASSWORD_LENGTH;
-      }
-      if(loaded.usernames == null) {
-        loaded.usernames = [];
-      }
-      if(loaded.alphabet == null) {
-        loaded.alphabet = SettingsService.DEFAULT_ALPHABET;
-      }
-      this._passwordLength.value = loaded.passwordLength;
-      this._alphabet.value = loaded.alphabet;
-      this._defaultUsername.value = loaded.defaultUsername;
-      this._usernames.value = loaded.usernames;
+      this.passwordLengthValue = loaded.passwordLength;
+      this.alphabetValue = loaded.alphabet;
+      this.defaultUsernameValue = loaded.defaultUsername;
+      this.usernamesValue = loaded.usernames;
+      this.isDarkThemeValue = loaded.isDarkTheme;
     }
     this.save();
   }
@@ -71,6 +66,7 @@ export class SettingsService {
     this._alphabet.value = SettingsService.DEFAULT_ALPHABET;
     this._defaultUsername.value = null;
     this._usernames.value = [];
+    this._isDarkTheme.value = false;
   }
 
   get alphabet(): ObservableValue<string> {
@@ -103,8 +99,21 @@ export class SettingsService {
     return this._defaultUsername;
   }
 
-  set defaultUserNameValue(value: string) {
+  set defaultUsernameValue(value: string) {
     this._defaultUsername.value = value;
   }
 
+  get isDarkTheme(): ObservableValue<boolean> {
+    return this._isDarkTheme;
+  }
+
+  set isDarkThemeValue(value: boolean) {
+    this._isDarkTheme.value = value;
+    if(value) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+
+  }
 }

@@ -54,7 +54,9 @@ export class SettingsComponent implements OnInit {
   public importPasswords(): void {
     this.uploadService.requestfile('.enc', 'Password backup').then((file: IFile) => {
       this.passwordFile.restorePasswords(file.file.value);
-    });
+    }).catch((reason => {
+
+    }));
   }
 
   public exportPasswords(): void {
@@ -65,6 +67,8 @@ export class SettingsComponent implements OnInit {
     this.uploadService.requestfile('.json', 'Settings backup').then((file: IFile) => {
       this.settings.restoreJSON(file.file.value);
       this.snackbar.open('Restored settings', 'Ok');
+    }).catch((reason) => {
+
     });
   }
 
@@ -89,4 +93,8 @@ export class SettingsComponent implements OnInit {
     this.snackbar.open('Restored defaults', 'Ok');
   }
 
+  public changeTheme(isDarkTheme: boolean): void {
+      this.settings.isDarkThemeValue = isDarkTheme;
+      this.settings.save();
+  }
 }

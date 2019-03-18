@@ -43,6 +43,7 @@ export class NewMasterPasswordPopupComponent implements OnInit {
       containsUpperCase()
     ]);
   }
+  //TODO: enforce formcontrol
 
   public getPasswordError(control: FormControl): string {
     if(control.hasError('required')) {

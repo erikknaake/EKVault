@@ -3,4 +3,5 @@ export interface ISettings {
   passwordLength: number;
   defaultUsername: string;
   usernames: string[];
+  isDarkTheme: boolean;
 }
