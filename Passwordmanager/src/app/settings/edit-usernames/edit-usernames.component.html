@@ -1,0 +1,36 @@
+<div class="column">
+  <mat-form-field>
+    <mat-label>
+      Default username
+    </mat-label>
+    <mat-select [(value)]="this.settings.defaultUsername.value">
+      <mat-option *ngFor="let username of this.settings.usernames.value" value="{{username}}">
+        {{username}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="this.loadDefaultUsername();">Cancel</button>
+  <button mat-raised-button (click)="this.saveDefaultUsername();">Ok</button>
+
+  <div class="column">
+    <h3 class="mat-h3">Add username</h3>
+    <mat-form-field>
+      <input matInput type="text" #newUsername placeholder="Username">
+    </mat-form-field>
+    <button mat-raised-button (click)="addUsername(newUsername.value)">Add username</button>
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Edit usernames
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let username of this.settings.usernames.value">
+        <app-edit-username [username]="username"></app-edit-username>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

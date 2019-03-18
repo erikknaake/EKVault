@@ -24,9 +24,7 @@ export class SettingsService {
 
   constructor() {
     this.load();
-    this._defaultUsername.value = "Erik";
-    this._usernames.value = [this._defaultUsername.value, "Test"];
-  } //TODO: make this better
+  }
 
   public save(): void {
     localStorage.setItem(SettingsService.STORAGE_KEY, this.toJSON());
@@ -67,6 +65,30 @@ export class SettingsService {
     this._defaultUsername.value = null;
     this._usernames.value = [];
     this._isDarkTheme.value = false;
+  }
+
+  public changeUsername(oldUsername: string, newUsername: string): void {
+    this._usernames.value[this._usernames.value.indexOf(oldUsername)] = newUsername;
+    this.save();
+  }
+
+  public addUsername(username: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      console.log(username, this.usernames.value.includes(username));
+      // The username already exists
+      if(this.usernames.value.includes(username)) {
+        reject('username');
+      } else {
+        this.usernames.value.push(username);
+        // Also set as default if its the first ever username
+        if(this.defaultUsername.value == null) {
+          this.defaultUsernameValue = username;
+        }
+        this.save();
+        resolve(true);
+      }
+    });
+
   }
 
   get alphabet(): ObservableValue<string> {

@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 import {NewMasterPasswordPopupComponent} from './popups/new-master-password-popup/new-master-password-popup.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ChangePasswordComponent} from './change-password/change-password.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {MaterialMdsModule} from "./material-mds";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -18,12 +17,14 @@ import {PasswordQueryFormComponent} from "./password-query-form/password-query-f
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import {UploadFilePopupComponent} from "./popups/upload-file-popup/upload-file-popup.component";
 import {ChangeAlphabetComponent} from "./settings/change-alphabet/change-alphabet.component";
+import { EditUsernamesComponent } from './settings/edit-usernames/edit-usernames.component';
+import { EditUsernameComponent } from './settings/edit-usernames/edit-username/edit-username.component';
+import {ChangePasswordsComponent} from "./settings/change-passwords/change-passwords.component";
 @NgModule({
   declarations: [
     AppComponent,
     NewMasterPasswordPopupComponent,
     SettingsComponent,
-    ChangePasswordComponent,
     NavigationComponent,
     AuthenticatePopupComponent,
     NewMasterPasswordPopupComponent,
@@ -31,7 +32,10 @@ import {ChangeAlphabetComponent} from "./settings/change-alphabet/change-alphabe
     LoadPasswordComponent,
     PasswordQueryFormComponent,
     UploadFilePopupComponent,
-    ChangeAlphabetComponent
+    ChangeAlphabetComponent,
+    ChangePasswordsComponent,
+    EditUsernamesComponent,
+    EditUsernameComponent
   ],
   imports: [
     BrowserModule,

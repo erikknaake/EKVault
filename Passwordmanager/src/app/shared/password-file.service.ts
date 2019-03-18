@@ -26,11 +26,36 @@ export class PasswordFileService {
    });
   }
 
-  public changePassword(domain: string, newPassword: string, username?: string): void {
+  public changePassword(domain: string, newPassword: string, username: string): void {
     this.loadPasswords().then((passwords: IDecryptedPasswords) => {
       passwords.passwords[passwords.passwords.findIndex((x: IPassword) => PasswordFileService.isPasswordIdentifiedBy(x, domain, username))].password = newPassword;
       this.storePasswords(passwords);
     }).catch(() => {});
+  }
+
+  public changeUsername(oldUsername: string, newUsername: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.loadPasswords().then((passwords: IDecryptedPasswords) => {
+        let numberOfUsernamesChanged: number = 0;
+        let newUsernameAlreadyUsed: boolean = false;
+        for(let iPassword of passwords.passwords) {
+          if(iPassword.username === oldUsername) {
+            iPassword.username = newUsername;
+            numberOfUsernamesChanged++;
+          } else if(iPassword.username === newUsername) {
+            newUsernameAlreadyUsed = true;
+            break;
+          }
+        }
+        if(newUsernameAlreadyUsed || numberOfUsernamesChanged > 1) {
+          reject('username');
+        }
+        this.storePasswords(passwords);
+        resolve(true);
+      }).catch((reason) => {
+
+      });
+    });
   }
 
   private static isPasswordIdentifiedBy(x: IPassword, domain: string, username: string): boolean {
