@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CSPRNGService} from "../../Crypto/csprng.service";
 import {SettingsService} from "../../settings/settings.service";
-import {PasswordFileService} from "../../shared/password-file.service";
+import {PasswordFileService} from "../../shared/password/password-file.service";
 import {SnackbarService} from "../../popups/snackbar/snackbar.service";
 import {PasswordUIHelperService} from "../password-uihelper.service";
 

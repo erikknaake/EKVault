@@ -1,25 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NavigationComponent } from './navigation.component';
+import {TestBed} from "@angular/core/testing";
+import {NavigationComponent} from "./navigation.component";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('NavigationComponent', () => {
-  let component: NavigationComponent;
-  let fixture: ComponentFixture<NavigationComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavigationComponent ]
-    })
-    .compileComponents();
-  }));
-
+  let component;
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavigationComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      providers: [
+        NavigationComponent
+      ],
+      imports: [
+        RouterTestingModule
+      ]
+    });
+    component = TestBed.get(NavigationComponent);
   });
 
-  it('should create', () => {
+  it('should init', () => {
     expect(component).toBeTruthy();
-  });
+  })
 });

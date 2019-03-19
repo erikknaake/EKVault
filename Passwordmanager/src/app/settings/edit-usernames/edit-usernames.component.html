@@ -11,11 +11,10 @@
   </mat-form-field>
   <button mat-raised-button (click)="this.loadDefaultUsername();">Cancel</button>
   <button mat-raised-button (click)="this.saveDefaultUsername();">Ok</button>
-
   <div class="column">
     <h3 class="mat-h3">Add username</h3>
     <mat-form-field>
-      <input matInput type="text" #newUsername placeholder="Username">
+      <input matInput type="text" #newUsername placeholder="Username" required>
     </mat-form-field>
     <button mat-raised-button (click)="addUsername(newUsername.value)">Add username</button>
   </div>

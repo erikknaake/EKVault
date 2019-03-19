@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {SettingsService} from "./settings.service";
 import {FormControl, Validators} from "@angular/forms";
 import {saveAs} from 'file-saver';
-import {PasswordFileService} from "../shared/password-file.service";
+import {PasswordFileService} from "../shared/password/password-file.service";
 import {UploadFileService} from "../popups/upload-file-popup/upload-file.service";
 import {IFile} from "../shared/IFile";
 import {SnackbarService} from "../popups/snackbar/snackbar.service";
-import {PasswordRequirementsService} from "../shared/password-requirements.service";
+import {PasswordRequirementsService} from "../shared/password/password-requirements.service";
 import {NewMasterPasswordService} from "../popups/new-master-password-popup/new-master-password.service";
 
 @Component({

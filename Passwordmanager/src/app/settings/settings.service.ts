@@ -2,6 +2,7 @@ import {Inject, Injectable, Renderer2} from '@angular/core';
 import {ObservableValue} from "../shared/ObservableValue";
 import {ISettings} from "./ISettings";
 import {DOCUMENT} from "@angular/common";
+import {ArrayHelper} from "../shared/ArrayHelper";
 
 @Injectable({
   providedIn: 'root'
@@ -60,11 +61,11 @@ export class SettingsService {
   }
 
   public setDefault(): void {
-    this._passwordLength.value = SettingsService.DEFAULT_PASSWORD_LENGTH;
-    this._alphabet.value = SettingsService.DEFAULT_ALPHABET;
-    this._defaultUsername.value = null;
-    this._usernames.value = [];
-    this._isDarkTheme.value = false;
+    this.passwordLengthValue = SettingsService.DEFAULT_PASSWORD_LENGTH;
+    this.alphabetValue = SettingsService.DEFAULT_ALPHABET;
+    this.defaultUsernameValue = null;
+    this.usernamesValue = [];
+    this.isDarkThemeValue = false;
   }
 
   public changeUsername(oldUsername: string, newUsername: string): void {
@@ -74,7 +75,6 @@ export class SettingsService {
 
   public addUsername(username: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      console.log(username, this.usernames.value.includes(username));
       // The username already exists
       if(this.usernames.value.includes(username)) {
         reject('username');
@@ -88,7 +88,11 @@ export class SettingsService {
         resolve(true);
       }
     });
+  }
 
+  public deleteUsername(username: string): void {
+    this.usernames.value = ArrayHelper.removeItem(this.usernames.value, username);
+    this.save();
   }
 
   get alphabet(): ObservableValue<string> {

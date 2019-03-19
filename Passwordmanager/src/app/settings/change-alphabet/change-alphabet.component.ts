@@ -3,6 +3,7 @@ import {SettingsService} from "../settings.service";
 import {FormControl, Validators} from "@angular/forms";
 import {noDoubleCharacters, noJSON} from "../../shared/validators/alphabet-validators";
 import {ISlideToggleEvent} from "./ISlideToggleEvent";
+import {ISubscriber} from "../../shared/ISubscriber";
 
 @Component({
   selector: 'app-change-alphabet',
@@ -19,7 +20,7 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
   private _containsAllNumbers: boolean = false;
   private _containsAllSymbols: boolean = false;
 
-  private alphabetSubscription: number;
+  private alphabetSubscription: ISubscriber<string>;
 
   public alphabetControl = new FormControl('', [
     Validators.required,

@@ -1,4 +1,4 @@
-import {IPasswordChange} from "../../shared/IPasswordChange";
+import {IPasswordChange} from "../../shared/password/IPasswordChange";
 
 export interface IChangePasswordForm {
   value: IPasswordChange;

@@ -21,5 +21,9 @@ export class AuthenticatePopupComponent implements OnInit {
   public submit(form): void {
     this.dialogRef.close(form.value.masterPassword);
   }
+
+  public cancel(): void {
+    this.dialogRef.close('Cancel');
+  }
 }
 

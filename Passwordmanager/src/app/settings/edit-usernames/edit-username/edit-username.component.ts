@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PasswordFileService} from "../../../shared/password-file.service";
+import {PasswordFileService} from "../../../shared/password/password-file.service";
 import {SettingsService} from "../../settings.service";
 import {SnackbarService} from "../../../popups/snackbar/snackbar.service";
 
@@ -12,6 +12,7 @@ export class EditUsernameComponent implements OnInit {
 
   @Input() public username: string;
   private oldUsername: string;
+  //TODO: make it so it does not save other settings
 
   constructor(private readonly passwordFile: PasswordFileService,
               private readonly settings: SettingsService,
@@ -22,7 +23,6 @@ export class EditUsernameComponent implements OnInit {
   }
 
   public changeUsername(): void {
-    console.log('change username: ', this.username);
     this.passwordFile.changeUsername(this.oldUsername, this.username).then(() => {
       this.settings.changeUsername(this.oldUsername, this.username);
       this.snackbar.open('Username changed', 'Ok');
@@ -38,6 +38,11 @@ export class EditUsernameComponent implements OnInit {
   }
 
   public deleteUsername(): void {
-    // TODO
+    this.passwordFile.deleteUsername(this.username).then(() => {
+      this.settings.deleteUsername(this.username);
+      this.snackbar.open('Deleted username', 'Ok')
+    }).catch(() => {
+
+    });
   }
 }

@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Clipboard} from "ts-clipboard";
 import {SettingsService} from "../settings/settings.service";
-import {DomainService} from "../shared/domain.service";
+import {DomainService} from "./domain.service";
 import {CSPRNGService} from "../Crypto/csprng.service";
 
 @Injectable({

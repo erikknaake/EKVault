@@ -14,18 +14,24 @@ export class PasswordQueryFormComponent implements OnInit {
 
   constructor(public readonly passwordUIHelper: PasswordUIHelperService,
               public settings: SettingsService,
-              private readonly router: Router) { }
+              private readonly router: Router) {
+  }
 
   ngOnInit() {
     this.router.events.subscribe((event: RouterEvent) => {
       if(event instanceof NavigationEnd) {
-        if(this.router.url === '/password/load') {
-          this.passwordUIHelper.password = '';
-        } else if (this.router.url === '/password/new') {
-          this.passwordUIHelper.password = this.passwordUIHelper.generatePassword();
-        }
+        this.setPasswordFieldForURL();
       }
-    })
+    });
+    this.setPasswordFieldForURL();
+  }
+
+  private setPasswordFieldForURL() {
+    if (this.router.url === '/password/load') {
+      this.passwordUIHelper.password = '';
+    } else if (this.router.url === '/password/new') {
+      this.passwordUIHelper.password = this.passwordUIHelper.generatePassword();
+    }
   }
 
   public onStrengthChanged(strength: number) {

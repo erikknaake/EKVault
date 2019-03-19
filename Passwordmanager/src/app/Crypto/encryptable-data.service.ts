@@ -15,6 +15,7 @@ export class EncryptableDataService {
   private readonly RADIX: number = 10;
 
   constructor() {
+    this.data = '';
   }
 
   get data(): string {
@@ -35,7 +36,7 @@ export class EncryptableDataService {
   }
 
   private updatePadding(): void {
-    this._paddingSize = this.data.length % this.MAX_PADDING_SIZE;
+    this._paddingSize = this.MAX_PADDING_SIZE - (this.data.length % this.MAX_PADDING_SIZE);
     this._padding = CSPRNGService.generateCSPRN(this.paddingSize);
   }
 
@@ -49,19 +50,6 @@ export class EncryptableDataService {
    */
   public encrypt(key: string): string {
     return this.makeNumberFixedLengthString(this.paddingSize, this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS) + EncrypterService.encrypt(this.toString(), key);
-  }
-
-  /**
-   * Decrypts the given string representation of the EncryptableDataService, notice it updates the padding after encrypting
-   * @param encryptableData
-   * @param key
-   */
-  public decrypt(encryptableData: string, key: string): EncryptableDataService {
-    this._paddingSize = parseInt(encryptableData.substr(0, this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), this.RADIX);
-    const decrypted: string = EncrypterService.decrypt(encryptableData.substr(this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length - this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), key);
-    this._data = decrypted.substr(this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, decrypted.length - this.paddingSize);
-    this.updatePadding();
-    return this;
   }
 
   /**
@@ -82,7 +70,7 @@ export class EncryptableDataService {
 
   private makeNumberFixedLengthString(data: number, length: number): string {
     let result: string = data.toString(this.RADIX);
-    while (result.length < this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS)
+    while (result.length < length)
       result = "0" + result;
     return result;
   }

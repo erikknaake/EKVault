@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {urlParse} from "./URL_parser";
+import {urlParse} from "../shared/URL_parser";
 @Injectable({
   providedIn: 'root'
 })

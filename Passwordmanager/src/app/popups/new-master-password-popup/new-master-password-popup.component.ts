@@ -6,7 +6,7 @@ import {
   containsUpperCase,
   identical
 } from "../../shared/validators/password-validators";
-import {PasswordRequirementsService} from "../../shared/password-requirements.service";
+import {PasswordRequirementsService} from "../../shared/password/password-requirements.service";
 import {MatDialogRef} from "@angular/material";
 import {IChangePasswordForm} from "./IChangePasswordForm";
 

@@ -6,10 +6,7 @@ import {Router} from "@angular/router";
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   constructor(public readonly router: Router) { }
-
-  ngOnInit() {
-  }
 
 }

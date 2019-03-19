@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SettingsService} from "../settings.service";
-import {PasswordFileService} from "../../shared/password-file.service";
+import {PasswordFileService} from "../../shared/password/password-file.service";
 
 @Component({
   selector: 'app-change-passwords',
