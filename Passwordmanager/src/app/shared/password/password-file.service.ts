@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {PasswordDTO} from "./PasswordDTO";
-import {AuthenticateService} from "../popups/authenticate-popup/authenticate.service";
-import {NewMasterPasswordService} from "../popups/new-master-password-popup/new-master-password.service";
-import {EncryptableDataService} from "../Crypto/encryptable-data.service";
+import {AuthenticateService} from "../../popups/authenticate-popup/authenticate.service";
+import {NewMasterPasswordService} from "../../popups/new-master-password-popup/new-master-password.service";
+import {EncryptableDataService} from "../../Crypto/encryptable-data.service";
 import {IDecryptedPasswords} from "./IDecryptedPasswords";
-import {SnackbarService} from "../popups/snackbar/snackbar.service";
+import {SnackbarService} from "../../popups/snackbar/snackbar.service";
 import {IPassword} from "./IPassword";
 import {IPasswordChange} from "./IPasswordChange";
-import {ReplaceUsernamePopupService} from "../popups/replace-usernames-popup/replace-username-popup.service";
-import {ArrayHelper} from "./ArrayHelper";
+import {ReplaceUsernamePopupService} from "../../popups/replace-usernames-popup/replace-username-popup.service";
+import {ArrayHelper} from "../ArrayHelper";
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +32,15 @@ export class PasswordFileService {
     });
   }
 
-  public changePassword(domain: string, newPassword: string, username: string): void {
-    this.loadPasswords().then((passwords: IDecryptedPasswords) => {
-      passwords.passwords[passwords.passwords.findIndex((x: IPassword) => PasswordFileService.isPasswordIdentifiedBy(x, domain, username))].password = newPassword;
-      this.storePasswords(passwords);
-    }).catch(() => {
+  public changePassword(domain: string, username: string, newPassword: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.loadPasswords().then((passwords: IDecryptedPasswords) => {
+        passwords.passwords[passwords.passwords.findIndex((x: IPassword) => PasswordFileService.isPasswordIdentifiedBy(x, domain, username))].password = newPassword;
+        this.storePasswords(passwords);
+        resolve(true);
+      }).catch((reason) => {
+        reject(reason);
+      });
     });
   }
 
@@ -60,7 +64,7 @@ export class PasswordFileService {
         this.storePasswords(passwords);
         resolve(true);
       }).catch((reason) => {
-
+        reject(reason);
       });
     });
   }
@@ -89,7 +93,7 @@ export class PasswordFileService {
     });
   }
 
-  private static isPasswordIdentifiedBy(x: IPassword, domain: string, username: string): boolean {
+  public static isPasswordIdentifiedBy(x: IPassword, domain: string, username: string): boolean {
     return x.domain === domain && x.username === username;
   }
 
@@ -116,7 +120,7 @@ export class PasswordFileService {
    * For releases futher down the road, implement splitting this data so more passwords can be stored since the limit is 8kB per item in localStorage
    */
   private storePasswords(passwords: IDecryptedPasswords): void {
-    const encryptablePasswords = new EncryptableDataService();
+    const encryptablePasswords = EncryptableDataService.newInstance();
     encryptablePasswords.data = JSON.stringify(passwords.passwords);
     const encryptedPasswords = encryptablePasswords.encrypt(passwords.masterPassword);
     localStorage.setItem(this.storageKey, encryptedPasswords)
@@ -124,7 +128,7 @@ export class PasswordFileService {
 
   private loadPasswords(): Promise<IDecryptedPasswords> {
     return new Promise<IDecryptedPasswords>((resolve, reject) => {
-      this.requestAuthentication().then((masterPassword) => {
+      this.requestAuthentication().then((masterPassword: string) => {
         resolve(this.decryptStorage(masterPassword));
       }).catch((reason) => {
         this.snackbar.open('Masterpassword is incorrect', 'Ok');
@@ -133,15 +137,15 @@ export class PasswordFileService {
     });
   }
 
-  private decryptStorage(masterPassword): IDecryptedPasswords {
-    const storagePasswords: string = this.getAllEncryptedPasswords();
-    const decryptedPasswords = EncryptableDataService.fromString(storagePasswords == null ? "" : storagePasswords, masterPassword);
+  private decryptStorage(masterPassword: string): IDecryptedPasswords {
+    const decryptedPasswords = EncryptableDataService.fromString(this.getAllEncryptedPasswords(), masterPassword);
     const parsedPasswords = (JSON.parse(decryptedPasswords.data) as IPassword[]);
     return {passwords: parsedPasswords, masterPassword: masterPassword};
   }
 
   public getAllEncryptedPasswords(): string {
-    return localStorage.getItem(this.storageKey);
+    const result = localStorage.getItem(this.storageKey);
+    return result == null ? "" : result;
   }
 
   public restorePasswords(encryptedPasswords: string): void {

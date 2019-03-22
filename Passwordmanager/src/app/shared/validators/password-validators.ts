@@ -27,7 +27,7 @@ export function containsUpperCase(): ValidatorFn {
 
 export function identical(inputControl: FormControl): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
-    const isAllowed: boolean = (control.value === inputControl.value);
+    const isAllowed: boolean = control.value !== inputControl.value;
     return isAllowed ? null : {'identical': {value: control.value}};
   };
 }

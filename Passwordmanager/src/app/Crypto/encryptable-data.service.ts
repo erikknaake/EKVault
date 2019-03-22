@@ -68,6 +68,10 @@ export class EncryptableDataService {
     return result;
   }
 
+  public static newInstance(): EncryptableDataService {
+    return new EncryptableDataService();
+  }
+
   private makeNumberFixedLengthString(data: number, length: number): string {
     let result: string = data.toString(this.RADIX);
     while (result.length < length)

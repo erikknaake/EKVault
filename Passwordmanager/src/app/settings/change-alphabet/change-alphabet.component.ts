@@ -46,7 +46,8 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.settings.alphabet.unsubscribe(this.alphabetSubscription);
+    if(this.alphabetSubscription != null)
+      this.settings.alphabet.unsubscribe(this.alphabetSubscription);
   }
 
   private adjustSliders() {

@@ -62,4 +62,7 @@ describe('EncryptableDataService', () => {
     expect(decrypted.data).toEqual('[]');
   });
 
+  it('should create a new instance', () => {
+    expect(EncryptableDataService.newInstance()).toEqual(new EncryptableDataService());
+  });
 });

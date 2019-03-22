@@ -11,6 +11,8 @@ import {NavigationEnd, Router, RouterEvent} from "@angular/router";
 export class PasswordQueryFormComponent implements OnInit {
 
   public passwordStrength: number;
+  public passwordEditable: boolean;
+  public showInputEditError: boolean;
 
   constructor(public readonly passwordUIHelper: PasswordUIHelperService,
               public settings: SettingsService,
@@ -21,6 +23,7 @@ export class PasswordQueryFormComponent implements OnInit {
     this.router.events.subscribe((event: RouterEvent) => {
       if(event instanceof NavigationEnd) {
         this.setPasswordFieldForURL();
+        this.showInputEditError = false;
       }
     });
     this.setPasswordFieldForURL();
@@ -29,13 +32,27 @@ export class PasswordQueryFormComponent implements OnInit {
   private setPasswordFieldForURL() {
     if (this.router.url === '/password/load') {
       this.passwordUIHelper.password = '';
+      this.passwordEditable = false;
     } else if (this.router.url === '/password/new') {
       this.passwordUIHelper.password = this.passwordUIHelper.generatePassword();
+      this.passwordEditable = true;
     }
   }
 
+
   public onStrengthChanged(strength: number) {
-    this.passwordStrength = strength;
+    // Timeout to not get a error about value changed after its evaluated
+    setTimeout(() => {
+      this.passwordStrength = strength;
+    });
   }
 
+  public clickOnPasswordInput(): void {
+    if(!this.passwordEditable) {
+      this.showInputEditError = true;
+      setTimeout(() => {
+        this.showInputEditError = false;
+      }, 5000);
+    }
+  }
 }

@@ -21,6 +21,7 @@ import {EditUsernamesComponent} from './settings/edit-usernames/edit-usernames.c
 import {EditUsernameComponent} from './settings/edit-usernames/edit-username/edit-username.component';
 import {ChangePasswordsComponent} from "./settings/change-passwords/change-passwords.component";
 import {ReplaceUsernamesPopupComponent} from './popups/replace-usernames-popup/replace-usernames-popup.component';
+import { EditPasswordComponent } from './edit-password/edit-password.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {ReplaceUsernamesPopupComponent} from './popups/replace-usernames-popup/r
     ChangePasswordsComponent,
     EditUsernamesComponent,
     EditUsernameComponent,
-    ReplaceUsernamesPopupComponent
+    ReplaceUsernamesPopupComponent,
+    EditPasswordComponent
   ],
   imports: [
     BrowserModule,

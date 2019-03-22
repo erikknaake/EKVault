@@ -11,13 +11,15 @@ export function noJSON(): ValidatorFn {
 export function noDoubleCharacters(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
     let isAllowed: boolean = true;
-    // for(let character of control.value) {
-    //   let reg = new RegExp(`[${character}]`);
-    //   if(control.value.match(reg).length > 1) {
-    //     isAllowed = false;
-    //     break;
-    //   }
-    // } //TODO
+    let checkedChars: string = '';
+    for(let character of control.value) {
+      if(checkedChars.includes(character)) {
+        isAllowed = false;
+        break;
+      } else {
+        checkedChars += character;
+      }
+    }
     return isAllowed ? null : {'noDoubleCharacters': {value: control.value}};
   };
 }

@@ -20,6 +20,18 @@ body {
   margin-top: 2%;
 }
 
+.matcard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10%;
+}
+
+.matcard > mat-card {
+  max-width: 25em;
+}
+
 @media only screen and (max-width: 30em) {
   body {
     width: 30em;
