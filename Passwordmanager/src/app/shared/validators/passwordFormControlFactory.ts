@@ -1,7 +1,11 @@
 import {FormControl, Validators} from "@angular/forms";
 import {PasswordRequirementsService} from "../password/password-requirements.service";
 import {containsLowerCase, containsNumeric, containsUpperCase} from "./password-validators";
+import {Injectable} from "@angular/core";
 
+@Injectable({
+  providedIn: "root"
+})
 export class PasswordFormControlFactory {
   public static getPasswordFormControl(): FormControl {
     return new FormControl('', [
