@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from "@angular/material";
-import {MatConfigService} from "../snackbar/mat-config.service";
+import {MatConfigService} from "../mat-config.service";
 import {RequestedFileExtensionService} from "./requested-file-extension.service";
 import {UploadFilePopupComponent} from "./upload-file-popup.component";
 import {IFile} from "../../shared/IFile";

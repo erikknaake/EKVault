@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {AuthenticatePopupComponent} from "./authenticate-popup.component";
-import {MatConfigService} from "../snackbar/mat-config.service";
+import {MatConfigService} from "../mat-config.service";
 
 @Injectable({
   providedIn: 'root'

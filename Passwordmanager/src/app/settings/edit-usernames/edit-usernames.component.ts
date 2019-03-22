@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SettingsService} from "../settings.service";
-import {SnackbarService} from "../../popups/snackbar/snackbar.service";
+import {SnackbarService} from "../../popups/snackbar.service";
 
 @Component({
   selector: 'app-edit-usernames',

@@ -1,6 +1,6 @@
 import {TestBed} from "@angular/core/testing";
 import {PasswordFileService} from "./password-file.service";
-import {SnackbarService} from "../../popups/snackbar/snackbar.service";
+import {SnackbarService} from "../../popups/snackbar.service";
 import {NewMasterPasswordService} from "../../popups/new-master-password-popup/new-master-password.service";
 import {AuthenticateService} from "../../popups/authenticate-popup/authenticate.service";
 import {ReplaceUsernamePopupService} from "../../popups/replace-usernames-popup/replace-username-popup.service";

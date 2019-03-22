@@ -4,7 +4,7 @@ import {AuthenticateService} from "../../popups/authenticate-popup/authenticate.
 import {NewMasterPasswordService} from "../../popups/new-master-password-popup/new-master-password.service";
 import {EncryptableDataService} from "../../Crypto/encryptable-data.service";
 import {IDecryptedPasswords} from "./IDecryptedPasswords";
-import {SnackbarService} from "../../popups/snackbar/snackbar.service";
+import {SnackbarService} from "../../popups/snackbar.service";
 import {IPassword} from "./IPassword";
 import {IPasswordChange} from "./IPasswordChange";
 import {ReplaceUsernamePopupService} from "../../popups/replace-usernames-popup/replace-username-popup.service";
