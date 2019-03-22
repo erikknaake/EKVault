@@ -2,11 +2,11 @@
   <div mat-dialog-content>
     <h1 mat-dialog-title>Enter master password</h1>
     <mat-form-field>
-      <input matInput formControlName="masterPassword" placeholder="Masterpassword" type="password">
+      <input matInput formControlName="masterPassword" placeholder="Masterpassword" type="password" [formControl]="newPasswordControl">
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
     <button mat-raised-button (click)="cancel()" type="button">Cancel</button>
-    <button mat-raised-button  cdkFocusInitial type="submit">Ok</button>
+    <button mat-raised-button cdkFocusInitial type="submit">Ok</button>
   </div>
 </form>

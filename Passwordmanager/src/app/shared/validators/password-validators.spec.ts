@@ -61,19 +61,19 @@ describe('Password validators', () => {
     it('should see the difference between formValues where difference is length', () => {
       formControl2.setValue('1./2Ac');
       formControl.setValue('1./2A');
-      expect(formControl.hasError('identical')).toEqual(false);
+      expect(formControl.hasError('identical')).toEqual(true);
     });
 
     it('should see the difference between formValues where difference is changed character', () => {
       formControl2.setValue('1./2Ac');
       formControl.setValue('1./2Bc');
-      expect(formControl.hasError('identical')).toEqual(false);
+      expect(formControl.hasError('identical')).toEqual(true);
     });
 
     it('should notice identical values', () => {
       formControl2.setValue('+_!@#@#$^^*&().,?/ab');
       formControl.setValue('+_!@#@#$^^*&().,?/ab');
-      expect(formControl.hasError('identical')).toEqual(true);
+      expect(formControl.hasError('identical')).toEqual(false);
     });
   });
 });

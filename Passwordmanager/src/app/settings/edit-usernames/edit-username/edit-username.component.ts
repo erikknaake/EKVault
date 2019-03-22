@@ -12,8 +12,6 @@ export class EditUsernameComponent implements OnInit {
 
   @Input() public username: string;
   private oldUsername: string;
-  //TODO: make it so it does not save other settings
-
   constructor(private readonly passwordFile: PasswordFileService,
               private readonly settings: SettingsService,
               private readonly snackbar: SnackbarService) { }

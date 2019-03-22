@@ -2,6 +2,9 @@
 - Backup reminder popup
 - Settings: auto backup after changes
 - Settings: remind me to backup
+- First time: Popup set username
+- Constistent button width in settings
+- Tooltips
 - More tests
 - Test release
 - Release 
