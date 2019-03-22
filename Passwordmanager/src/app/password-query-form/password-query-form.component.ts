@@ -21,7 +21,7 @@ export class PasswordQueryFormComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe((event: RouterEvent) => {
-      if(event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd) {
         this.setPasswordFieldForURL();
         this.showInputEditError = false;
       }
@@ -45,14 +45,5 @@ export class PasswordQueryFormComponent implements OnInit {
     setTimeout(() => {
       this.passwordStrength = strength;
     });
-  }
-
-  public clickOnPasswordInput(): void {
-    if(!this.passwordEditable) {
-      this.showInputEditError = true;
-      setTimeout(() => {
-        this.showInputEditError = false;
-      }, 5000);
-    }
   }
 }

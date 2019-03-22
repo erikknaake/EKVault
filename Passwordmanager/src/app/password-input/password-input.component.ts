@@ -17,10 +17,13 @@ export class PasswordInputComponent implements OnInit {
   @Input()
   public type: string = 'password';
 
+  @Input()
+  public value: string = '';
 
   constructor(public readonly passwordControlFormFactory: PasswordFormControlFactory) { }
 
   ngOnInit() {
+    this.control.setValue(this.value);
   }
 
 }

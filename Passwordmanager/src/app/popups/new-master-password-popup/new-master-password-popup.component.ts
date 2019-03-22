@@ -31,8 +31,6 @@ export class NewMasterPasswordPopupComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      oldPassword: '',
-      newPassword: ''
     });
   }
 

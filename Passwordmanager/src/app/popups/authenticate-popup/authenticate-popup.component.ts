@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatDialogRef} from "@angular/material";
+import {PasswordFormControlFactory} from "../../shared/validators/passwordFormControlFactory";
 
 @Component({
   selector: 'app-authenticate-popup',
@@ -10,6 +11,7 @@ import {MatDialogRef} from "@angular/material";
 export class AuthenticatePopupComponent implements OnInit {
 
   public form: FormGroup;
+  public passwordControl = PasswordFormControlFactory.getPasswordFormControl();
   constructor(public readonly dialogRef: MatDialogRef<AuthenticatePopupComponent>, private readonly formBuilder: FormBuilder) { }
 
   ngOnInit() {
