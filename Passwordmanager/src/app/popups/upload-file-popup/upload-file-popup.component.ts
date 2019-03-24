@@ -12,6 +12,8 @@ export class UploadFilePopupComponent implements OnInit {
 
   public form: FormGroup;
   public loading: boolean;
+  public invalid: boolean = false;
+  public filePresent: boolean = false;
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(public readonly dialogRef: MatDialogRef<UploadFilePopupComponent>,
@@ -46,9 +48,12 @@ export class UploadFilePopupComponent implements OnInit {
               filename: file.name,
               filetype: file.type,
               value: reader.result
-            })
+            });
+            this.invalid = false;
+            this.filePresent = true;
           }
           else {
+            this.invalid = true;
             // TODO: show error, incorrect file type
           }
         }

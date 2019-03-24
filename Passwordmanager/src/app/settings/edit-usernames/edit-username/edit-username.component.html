@@ -1,6 +1,8 @@
-<mat-form-field>
-  <input matInput placeholder="Username" [(ngModel)]="this.username" type="text">
-</mat-form-field>
-<button mat-raised-button (click)="discardChanges()">Discard changes</button>
-<button mat-raised-button (click)="changeUsername()">Change</button>
-<button mat-raised-button (click)="deleteUsername()">Delete</button>
+<div class="column">
+  <mat-form-field>
+    <input matInput placeholder="Username" [(ngModel)]="this.username" type="text">
+  </mat-form-field>
+  <button mat-raised-button (click)="discardChanges()">Discard changes</button>
+  <button mat-raised-button (click)="changeUsername()">Change</button>
+  <button mat-raised-button (click)="deleteUsername()">Delete</button>
+</div>

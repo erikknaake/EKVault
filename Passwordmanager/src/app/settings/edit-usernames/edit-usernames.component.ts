@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SettingsService} from "../settings.service";
 import {SnackbarService} from "../../popups/snackbar.service";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-usernames',
@@ -9,6 +10,7 @@ import {SnackbarService} from "../../popups/snackbar.service";
 })
 export class EditUsernamesComponent implements OnInit {
 
+  public usernameControl: FormControl = new FormControl('', Validators.required);
   constructor(public readonly settings: SettingsService,
               private readonly snackbar: SnackbarService) { }
 

@@ -4,6 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {noDoubleCharacters, noJSON} from "../../shared/validators/alphabet-validators";
 import {ISlideToggleEvent} from "./ISlideToggleEvent";
 import {ISubscriber} from "../../shared/ISubscriber";
+import {AlphabetService} from "../../shared/password/alphabet.service";
 
 @Component({
   selector: 'app-change-alphabet',
@@ -12,7 +13,7 @@ import {ISubscriber} from "../../shared/ISubscriber";
 })
 export class ChangeAlphabetComponent implements OnInit, OnDestroy {
 
-  public static readonly MIN_ALPHABET_LENGTH = 20;
+  public static readonly MIN_ALPHABET_LENGTH = 16;
   public static readonly MAX_ALPHABET_LENGTH = 256; // After 256 Nanoid (CSPRNG) becomes insecure
 
   private _containsAllCapitals: boolean = false;
@@ -24,13 +25,15 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
 
   public alphabetControl = new FormControl('', [
     Validators.required,
-    Validators.max(ChangeAlphabetComponent.MAX_ALPHABET_LENGTH),
-    Validators.min(ChangeAlphabetComponent.MIN_ALPHABET_LENGTH),
+    Validators.maxLength(ChangeAlphabetComponent.MAX_ALPHABET_LENGTH),
+    Validators.minLength(ChangeAlphabetComponent.MIN_ALPHABET_LENGTH),
     noJSON(),
     noDoubleCharacters()
   ]);
 
-  constructor(private readonly settings: SettingsService) {
+  constructor(private readonly settings: SettingsService,
+              private alphabetService: AlphabetService
+              ) {
   }
 
   ngOnInit() {
@@ -38,6 +41,7 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
       this.settings.alphabetValue = value;
       // the alphabetObserverableValue makes sure this doesnt loop
       this.adjustSliders();
+      this.alphabetService.invalid = this.alphabetControl.invalid;
     });
     this.alphabetSubscription = this.settings.alphabet.subscribe((value: string) => {
       this.alphabetControl.setValue(this.settings.alphabet.value);
@@ -74,9 +78,9 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
       return 'An alphabet connot contain a , nor a :';
     } else if(this.alphabetControl.hasError('noDoubleCharacters')) {
       return 'An alphabet cannot contain the same character more than once';
-    } else if(this.alphabetControl.hasError('min')) {
+    } else if(this.alphabetControl.hasError('minlength')) {
       return `An alphabet must be at least ${ChangeAlphabetComponent.MIN_ALPHABET_LENGTH} characters long`;
-    } else if(this.alphabetControl.hasError('max')) {
+    } else if(this.alphabetControl.hasError('maxlength')) {
       return `An alphabet can at most be ${ChangeAlphabetComponent.MAX_ALPHABET_LENGTH} characters long`;
     } else if(this.alphabetControl.hasError('required')) {
       return 'There must be an alphabet to generate passwords';
@@ -84,29 +88,21 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
   }
 
   public updateCapitals(event: ISlideToggleEvent): void {
-    this.findAndRemoveOrAdd(event.checked, SettingsService.CAPITALS);
+    this.findAndRemoveOrAddSymbols(event.checked, SettingsService.CAPITALS);
   }
 
   public updateLetters(event: ISlideToggleEvent): void {
-    this.findAndRemoveOrAdd(event.checked, SettingsService.LETTERS);
+    this.findAndRemoveOrAddSymbols(event.checked, SettingsService.LETTERS);
   }
 
   public updateNumbers(event: ISlideToggleEvent): void {
-    this.findAndRemoveOrAdd(event.checked, SettingsService.NUMBERS);
+    this.findAndRemoveOrAddSymbols(event.checked, SettingsService.NUMBERS);
   }
 
   public updateSymbols(event: ISlideToggleEvent): void {
     this.findAndRemoveOrAddSymbols(event.checked, SettingsService.SYMBOLS);
   }
 
-  private findAndRemoveOrAdd(add: boolean, set: string): void {
-    this.settings.alphabetValue = this.settings.alphabet.value.replace(new RegExp(`(${set})`), '');
-    if (add)
-        this.settings.alphabet.value += set;
-    this.alphabetControl.setValue(this.settings.alphabet.value);
-  }
-
-  // Since regex and special characters are hard to mix this more inefficient way should only be used to filter out special characters
   private findAndRemoveOrAddSymbols(add: boolean, symbols: string) {
     for(let i: number = 0; i < symbols.length; i++) {
       for(let j: number = 0; j < this.settings.alphabet.value.length; j++) {

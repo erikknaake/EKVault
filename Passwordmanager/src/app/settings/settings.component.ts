@@ -7,7 +7,7 @@ import {UploadFileService} from "../popups/upload-file-popup/upload-file.service
 import {IFile} from "../shared/IFile";
 import {SnackbarService} from "../popups/snackbar.service";
 import {PasswordRequirementsService} from "../shared/password/password-requirements.service";
-import {NewMasterPasswordService} from "../popups/new-master-password-popup/new-master-password.service";
+import {AlphabetService} from "../shared/password/alphabet.service";
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
               private readonly passwordFile: PasswordFileService,
               private readonly uploadService: UploadFileService,
               private readonly snackbar: SnackbarService,
-              private readonly changeMasterpasswordPopup: NewMasterPasswordService) { }
+              public readonly alphabetService: AlphabetService) { }
 
   ngOnInit() {
     this.passwordLengthControl.setValue(this.settings.passwordLength.value);
@@ -37,9 +37,9 @@ export class SettingsComponent implements OnInit {
     if(this.passwordLengthControl.hasError('required')) {
       return 'You must enter a value';
     } else if (this.passwordLengthControl.hasError('max')) {
-      return `A password can at most be ${PasswordRequirementsService.MAX_PASSWORD_LENGTH} characters`;
+      return `The password length can at most be ${PasswordRequirementsService.MAX_PASSWORD_LENGTH} characters`;
     } else if (this.passwordLengthControl.hasError('min')) {
-      return `A password must be at least ${PasswordRequirementsService.MIN_PASSWORD_LENGTH} characters`;
+      return `The password length must be at least ${PasswordRequirementsService.MIN_PASSWORD_LENGTH} characters`;
     }
   }
 

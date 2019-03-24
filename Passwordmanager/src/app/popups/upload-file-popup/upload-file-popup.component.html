@@ -1,14 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="upload">
   <div mat-dialog-content>
     <h1 mat-dialog-title>Upload file</h1>
-    <div>
+    <div class="row">
       <label for="file">{{this.requestedExtension.label}}</label>
-      <input type="file" id="file" (change)="onFileChange($event)" #fileInput cdkInitialFocus>
+      <input type="file" id="file" (change)="onFileChange($event)" #fileInput cdkInitialFocus accept="{{requestedExtension.extension}}">
+      <mat-error *ngIf="invalid">Invalid extension</mat-error>
     </div>
   </div>
-  <div mat-dialog-actions>
+  <div mat-dialog-actions class="column row">
     <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
-    <button type="submit" mat-raised-button [disabled]="loading">Submit<i class="fa fa-spinner fa-spin fa-fw" *ngIf="this.loading"></i></button>
-    <!---->
+    <button type="submit" mat-raised-button [disabled]="loading || invalid || !filePresent">Submit<i class="fa fa-spinner fa-spin fa-fw" *ngIf="this.loading"></i></button>
   </div>
 </form>

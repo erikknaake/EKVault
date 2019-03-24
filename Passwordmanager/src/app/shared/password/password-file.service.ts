@@ -163,8 +163,8 @@ export class PasswordFileService {
         decryptedPasswords.masterPassword = passwords.newPassword;
         this.storePasswords(decryptedPasswords);
         resolve(true);
-      }).catch(() => {
-        reject(false);
+      }).catch((reason) => {
+        reject(reason);
       });
     });
   }

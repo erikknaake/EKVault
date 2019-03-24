@@ -9,7 +9,7 @@ export class MatConfigService {
   constructor() { }
 
   public getMatConfig(): MatDialogConfig {
-    return {width: '25em', height: '25em', hasBackdrop: true};
+    return {width: '25em', height: '25em', disableClose: true};
   }
 
   public getMatSnackBarConfig(): MatSnackBarConfig {

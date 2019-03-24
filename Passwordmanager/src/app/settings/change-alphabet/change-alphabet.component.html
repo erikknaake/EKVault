@@ -1,8 +1,10 @@
 <div class="column">
   <mat-form-field>
     <input matInput placeholder="Alphabet" type="text" [formControl]="alphabetControl" required>
+    <help matSuffix tooltip="The alphabet is the collection of characters used to choose characters from when generating new passwords"></help>
     <mat-error *ngIf="alphabetControl.invalid">{{getAlphabetError()}}</mat-error>
   </mat-form-field>
+
   <div class="column">
     <mat-slide-toggle [checked]="containsAllCapitals" (change)="updateCapitals($event)">Uppercase letters</mat-slide-toggle>
     <mat-slide-toggle [checked]="containsAllLetters" (change)="updateLetters($event)">Lowercase letters</mat-slide-toggle>

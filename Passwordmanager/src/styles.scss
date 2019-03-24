@@ -36,8 +36,18 @@ body {
   margin-top: 10%;
 }
 
+mat-card {
+  width: 100%;
+  margin-bottom: 2%;
+}
+
 .matcard > mat-card {
   max-width: 25em;
+}
+
+.section {
+  margin-top: 2%;
+  margin-bottom: 1% !important;
 }
 
 @media only screen and (max-width: 30em) {

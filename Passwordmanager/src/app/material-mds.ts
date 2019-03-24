@@ -14,7 +14,7 @@ import {
   MatSelectModule,
   MatSliderModule, MatSlideToggleModule,
   MatSnackBarModule,
-  MatToolbarModule,
+  MatToolbarModule, MatTooltipModule,
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 
@@ -41,7 +41,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCheckboxModule,
     MatToolbarModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule
   ],
   imports: [
     CommonModule,
@@ -62,6 +63,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSliderModule,
     MatInputModule,
     MatToolbarModule,
+    MatTooltipModule
   ],
 })
 export class MaterialMdsModule {

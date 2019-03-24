@@ -22,6 +22,14 @@ export class PasswordUIHelperService implements OnInit {
   private _domain: string;
   private _title: string;
   private _passwordLabel: string;
+  private _domainInvalid: boolean;
+  get domainInvalid(): boolean {
+    return this._domainInvalid;
+  }
+
+  set domainInvalid(value: boolean) {
+    this._domainInvalid = value;
+  }
 
   get passwordLabel(): string {
     return this._passwordLabel;
@@ -117,5 +125,9 @@ export class PasswordUIHelperService implements OnInit {
 
   public generatePassword(): string {
     return CSPRNGService.generateCSPRN(this.settings.passwordLength.value);
+  }
+
+  public invalid(): boolean {
+    return this.domainInvalid;
   }
 }

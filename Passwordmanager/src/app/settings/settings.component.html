@@ -1,5 +1,5 @@
 <div class="matcard">
-  <mat-card class="settings-container">
+  <mat-card>
     <h1 class="mat-h1">Settings</h1>
     <mat-accordion>
       <mat-expansion-panel>
@@ -8,16 +8,19 @@
             Password generation
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-form-field>
-          <input matInput placeholder="Password length" type="number" [formControl]="passwordLengthControl" #passwordLength required>
-          <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
-        </mat-form-field>
+        <div class="column">
+          <mat-form-field>
+            <input matInput placeholder="Password length" type="number" [formControl]="passwordLengthControl" #passwordLength required>
+            <help matSuffix tooltip="The length a newly generated password should be"></help>
+            <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
+          </mat-form-field>
+        </div>
 
         <app-change-alphabet class="settings-row"></app-change-alphabet>
 
         <div class="column">
           <button mat-raised-button (click)="discardSettings()">Discard changes</button>
-          <button mat-raised-button (click)="saveSettings()">Save changes</button>
+          <button mat-raised-button [disabled]="passwordLengthControl.invalid || this.alphabetService.invalid" (click)="saveSettings()">Save changes</button>
           <button mat-raised-button (click)="restoreDefaultSettings()">Restore defaults</button>
         </div>
       </mat-expansion-panel>
@@ -27,7 +30,9 @@
             Change masterpassword
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <button mat-raised-button (click)="changeMasterpassword()">Change masterpassword</button>
+        <div class="column">
+          <button mat-raised-button (click)="changeMasterpassword()">Change masterpassword</button>
+        </div>
       </mat-expansion-panel>
       <!--TODO: change passwords-->
       <mat-expansion-panel>
@@ -36,7 +41,7 @@
             Usernames
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <!--TODO--><app-edit-usernames></app-edit-usernames>
+        <app-edit-usernames></app-edit-usernames>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -50,8 +55,10 @@
               Settings
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <button mat-raised-button (click)="importSettings()">Import Settings</button>
-          <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+          <div class="column">
+            <button mat-raised-button (click)="importSettings()">Import Settings</button>
+            <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+          </div>
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -59,8 +66,10 @@
               Passwords
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
-          <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
+          <div class="column">
+            <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
+            <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
+          </div>
         </mat-expansion-panel>
       </mat-expansion-panel>
       <mat-expansion-panel>
