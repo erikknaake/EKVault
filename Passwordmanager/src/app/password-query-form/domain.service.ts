@@ -11,10 +11,11 @@ export class DomainService {
     return urlParse(url).hostname;
   }
 
-  public getDomain(): Promise<any> {
+  public getDomain(): Promise<string> {
     return new Promise((resolve) => {
       this.tabs.query({currentWindow: true, active: true}, (tab) => {
-        resolve(DomainService.URLToDomain(tab[0]));
+        const result: string = DomainService.URLToDomain(tab[0].url);
+        resolve(result);
       });
     });
   }

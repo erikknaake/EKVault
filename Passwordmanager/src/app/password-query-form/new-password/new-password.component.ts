@@ -24,12 +24,13 @@ export class NewPasswordComponent implements OnInit {
   }
 
   public addPassword(): void {
-    this.passwordFile.addPassword(this.passwordUIHelper.domain, this.passwordUIHelper.password, this.passwordUIHelper.selectedUsername).then(() => {
-      this.snackbar.open('Password generated', 'Copy to clipboard').onAction().subscribe(() => {
-        this.passwordUIHelper.copyPassword();
+    this.passwordUIHelper.getDomain().then((domain: string) => {
+      this.passwordFile.addPassword(domain, this.passwordUIHelper.password, this.passwordUIHelper.selectedUsername).then(() => {
+        this.snackbar.open('Password generated', 'Copy to clipboard').onAction().subscribe(() => {
+          this.passwordUIHelper.copyPassword();
+        });
       });
     });
+
   }
-
-
 }

@@ -3,7 +3,7 @@
     <h1 mat-dialog-title>Upload file</h1>
     <div class="row">
       <label for="file">{{this.requestedExtension.label}}</label>
-      <input type="file" id="file" (change)="onFileChange($event)" #fileInput cdkInitialFocus accept="{{requestedExtension.extension}}">
+      <input type="file" id="file" (change)="onFileChange($event)" #fileInput accept="{{requestedExtension.extension}}">
       <mat-error *ngIf="invalid">Invalid extension</mat-error>
     </div>
   </div>

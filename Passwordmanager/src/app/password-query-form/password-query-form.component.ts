@@ -33,7 +33,9 @@ export class PasswordQueryFormComponent implements OnInit {
       this.passwordUIHelper.domain = value;
       this.passwordUIHelper.domainInvalid = this.domainControl.invalid;
     });
-    this.domainControl.setValue(this.passwordUIHelper.domain);
+    this.passwordUIHelper.getDomain().then((domain: string) => {
+      this.domainControl.setValue(domain);
+    });
   }
 
   private setPasswordFieldForURL() {

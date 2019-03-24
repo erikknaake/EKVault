@@ -22,12 +22,14 @@ export class LoadPasswordComponent implements OnInit {
   ngOnInit() {
     this.passwordUIHelper.passwordLabel = 'Loaded password';
     this.passwordUIHelper.title = 'Load password';
-    this.editPassword.domain = this.passwordUIHelper.domain;
+    this.passwordUIHelper.getDomain().then((value) => {
+      this.editPassword.domain = value;
+    });
     this.editPassword.username = this.passwordUIHelper.selectedUsername;
   }
 
-  public loadPassword() {
-    this.passwordFile.getPassword(this.passwordUIHelper.domain, this.passwordUIHelper.selectedUsername).then((password: string) => {
+  public loadPassword(): void {
+    this.passwordFile.getPassword(this.editPassword.domain, this.passwordUIHelper.selectedUsername).then((password: string) => {
       this.passwordUIHelper.password = password;
       this.snackbar.open('Password loaded', 'Copy to clipboard').onAction().subscribe(() => {
         this.passwordUIHelper.copyPassword();

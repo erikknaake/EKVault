@@ -8,4 +8,6 @@ export class EditPasswordService {
   public domain: string;
   public password: string;
   constructor() { }
+
+
 }

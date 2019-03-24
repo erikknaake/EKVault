@@ -79,8 +79,19 @@ export class PasswordUIHelperService implements OnInit {
     this._passwordInputType = value;
   }
 
-  get domain(): string {
-    return this._domain;
+  getDomain(): Promise<string> {
+    return new Promise<string>((resolve) => {
+      if(this._domain != null)
+        resolve(this._domain);
+      else {
+        // Init selectedUsername in constructor so text inputs can have preset defaults
+        this.domainService.getDomain().then((domain) => {
+          this._domain = domain;
+          resolve(this._domain);
+        });
+      }
+    });
+
   }
 
   set domain(value: string) {
@@ -89,10 +100,7 @@ export class PasswordUIHelperService implements OnInit {
 
   constructor(private readonly settings: SettingsService,
               private readonly domainService: DomainService) {
-    // Init selectedUsername in constructor so text inputs can have preset defaults
-    this.domainService.getDomain().then((domain) => {
-      this._domain = domain;
-    });
+
     //Init passwordVisibility in constructor so depended mat-icons are visible when first loaded in
     this._passwordVisibility = PasswordUIHelperService.HIDDEN_PASSWORD_VISIBILITY;
     // Init selectedUsername in constructor so select input can have preselected defaults
