@@ -79,6 +79,33 @@
         </mat-expansion-panel-header>
         <mat-slide-toggle [checked]="this.settings.isDarkTheme.value" (change)="changeTheme($event.checked)">Dark-theme</mat-slide-toggle>
       </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Info
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Version 0.0.1</p>
+        <p>View the <a href="https://erikknaake.github.io/Passwordmanager/">wiki</a>.</p>
+        <p>Because PasswordManager runs in your browser, we recommend making backups of your passwords regularly.
+          If an attacker manages to modify the PasswordManager code your passwords might be lost. You can also lose your passwords when
+          you clear the local storage of this extension
+        </p>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Legal
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>This product, including all its components, cannot be redistributed without the explicit permission of its creator.</p>
+          <p>When you get permission to redistribute this product, the creator can make condition, including, but not limited to,
+            a percentage of income and statistical information.</p>
+          <p>The creator of this product can at all times revoke the permission to redistribute his product.</p>
+          <p>The creator of this product cannot be hold responsible for any flaws, bugs, weaknesses nor for any other issues in this product.</p>
+          <p>The creator of this product remains his rights to this product when it is modified or changed in any other way.</p>
+          <p>&copy; Erik Knaake 2019</p>
+        </mat-expansion-panel>
+      </mat-expansion-panel>
     </mat-accordion>
 
   </mat-card>

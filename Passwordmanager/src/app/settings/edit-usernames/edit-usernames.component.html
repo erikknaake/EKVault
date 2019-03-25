@@ -18,7 +18,7 @@
   <div class="column section">
     <h3 class="mat-h3">Add username</h3>
     <mat-form-field>
-      <input matInput type="text" #newUsername placeholder="Username" [formControl]="usernameControl" required>
+      <input matInput type="text" #newUsername placeholder="New username" [formControl]="usernameControl" required>
       <mat-error *ngIf="usernameControl.invalid">An username is required</mat-error>
     </mat-form-field>
     <button mat-raised-button (click)="addUsername(newUsername.value)" [disabled]="usernameControl.invalid">Add username</button>

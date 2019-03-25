@@ -54,6 +54,10 @@ mat-card {
   margin-bottom: 1% !important;
 }
 
+.dark-theme a {
+  color: white;
+}
+
 @media only screen and (max-width: 30em) {
   body {
     width: 30em;

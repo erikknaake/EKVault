@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && copy ..\\manifest.json dist\\Passwordmanager",
-    "debugbuild": "ng build && copy ..\\manifest.json dist\\Passwordmanager",
+    "build:production": "ng build --prod && copy ..\\manifest.json dist\\Passwordmanager",
+    "build": "ng build && copy ..\\manifest.json dist\\Passwordmanager",
     "test": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
