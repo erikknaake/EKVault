@@ -27,9 +27,9 @@ export class PasswordFormControlFactory {
       return `A password must be at least ${PasswordRequirementsService.MIN_PASSWORD_LENGTH} characters`;
     } else if (control.hasError('containsNumeric')) {
       return 'A password should contain a number';
-    } else if (control.hasError('containsLowerCase')) {
+    } else if (control.hasError('containsLowercase')) {
       return 'A password should contain a lowercase character';
-    } else if (control.hasError('containsUpperCase')) {
+    } else if (control.hasError('containsUppercase')) {
       return 'A password should contain a uppercase character';
     }
   }

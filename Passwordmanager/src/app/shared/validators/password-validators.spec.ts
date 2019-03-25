@@ -42,12 +42,12 @@ describe('Password validators', () => {
 
     it('should detect upperCase character', () => {
       formControl.setValue('1./2A');
-      expect(formControl.hasError('containsUpperCase')).toEqual(false);
+      expect(formControl.hasError('containsUppercase')).toEqual(false);
     });
 
-    it('should not mistake symbols and numerics for lowercase', () => {
+    it('should not mistake symbols and numerics for uppercase', () => {
       formControl.setValue('+_!@#@#$^^*&().,?/ab');
-      expect(formControl.hasError('containsUpperCase')).toEqual(true);
+      expect(formControl.hasError('containsUppercase')).toEqual(true);
     });
   });
 
