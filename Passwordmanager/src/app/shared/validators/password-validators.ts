@@ -1,28 +1,23 @@
 import {AbstractControl, FormControl, ValidatorFn} from "@angular/forms";
 
-
-export function containsNumeric(): ValidatorFn {
+function checkRegEx(regString: string): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
-    const reg: RegExp = new RegExp("[0-9]");
+    const reg: RegExp = new RegExp(regString);
     const isAllowed: boolean = reg.test(control.value);
     return isAllowed ? null : {'containsNumeric': {value: control.value}};
   };
 }
 
+export function containsNumeric(): ValidatorFn {
+  return checkRegEx("[0-9]");
+}
+
 export function containsLowerCase(): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const reg: RegExp = new RegExp("[a-z]");
-    const isAllowed: boolean = reg.test(control.value);
-    return isAllowed ? null : {'containsLowercase': {value: control.value}};
-  };
+  return checkRegEx("[a-z]");
 }
 
 export function containsUpperCase(): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const reg: RegExp = new RegExp("[A-Z]");
-    const isAllowed: boolean = reg.test(control.value);
-    return isAllowed ? null : {'containsUpperCase': {value: control.value}};
-  };
+  return checkRegEx("[A-Z]");
 }
 
 export function identical(inputControl: FormControl): ValidatorFn {
@@ -31,3 +26,4 @@ export function identical(inputControl: FormControl): ValidatorFn {
     return isAllowed ? null : {'identical': {value: control.value}};
   };
 }
+

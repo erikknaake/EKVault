@@ -18,6 +18,6 @@ export class PasswordDTO implements IPassword{
 
   public static fromString(data: string) {
     const dataJSON = JSON.parse(data);
-    return new PasswordDTO(dataJSON['password'], dataJSON['domain'], dataJSON['username']);;
+    return new PasswordDTO(dataJSON['password'], dataJSON['domain'], dataJSON['username']);
   }
 }

@@ -9,6 +9,6 @@
   </div>
   <div mat-dialog-actions class="column row">
     <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
-    <button type="submit" mat-raised-button [disabled]="loading || invalid || !filePresent">Submit<i class="fa fa-spinner fa-spin fa-fw" *ngIf="this.loading"></i></button>
+    <button type="submit" mat-raised-button [disabled]="loading || invalid || !filePresent">Submit<em class="fa fa-spinner fa-spin fa-fw" *ngIf="this.loading"></em></button>
   </div>
 </form>

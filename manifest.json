@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Password Manager",
-  "version": "0.0.0",
+  "short_name": "Password Manager",
+  "version": "0.0.1",
   "description": "Password Manager is a chrome extension that stores passwords in a encrypted manner",
   "author": "Erik Knaake",
 
@@ -10,7 +11,7 @@
   },
 
   "permissions": [
-    "tabs"
+    "activeTab"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
