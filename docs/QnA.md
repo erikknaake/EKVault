@@ -14,7 +14,8 @@ rainbowtables available for common passwords. A password manager fixes all of th
 
 __q:__ Why use this passwordmanager?
 
-__a:__ This is one of the few password managers that uses no internet connection at all and completely runs locally.
+__a:__ This is one of the few password managers that [verifiable](VerifyNoInternet.md) uses no internet connection at all and completely runs locally.
+This also is among the few that share how passwords are encrypted.
 
 __q:__ How are my passwords stored?
 
