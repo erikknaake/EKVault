@@ -3,7 +3,9 @@ Because we value your privacy we have the following privacy statement:
 Our extension only handles your data locally, nothing gets send over the [internet](VerifyNoInternet.md).
 We have gone to great extend to store your passwords in a [secure way](HowArePasswordsStored.md), however mistakes are human
 and we can't 100% garantee we haven't made any mistakes.
-___
+
+____
+
 What data do we use?
 
 We use the url of the current open tab whenever you open Password Manager,
