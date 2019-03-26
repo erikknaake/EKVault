@@ -5,11 +5,9 @@
   "version": "0.0.1",
   "description": "Password Manager is a chrome extension that stores passwords in a encrypted way",
   "author": "Erik Knaake",
-
   "browser_action": {
     "default_popup": "index.html"
   },
-
   "permissions": [
     "activeTab"
   ],
@@ -18,5 +16,9 @@
     "assets/css/*",
     "assets/js/*",
     "assets/fonts/*"
-  ]
+  ],
+  "icons": {
+    "128": "assets/images/lock-icon-128.png",
+    "512": "assets/images/lock-icon-512.png"
+  }
 }
