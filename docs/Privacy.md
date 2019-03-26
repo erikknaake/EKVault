@@ -1,3 +1,4 @@
+# Privacy Statement
 Because we value your privacy we have the following privacy statement:
 
 Our extension only handles your data locally, nothing gets send over the [internet](VerifyNoInternet.md).
