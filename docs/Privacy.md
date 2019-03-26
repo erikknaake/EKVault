@@ -3,7 +3,7 @@ Because we value your privacy we have the following privacy statement:
 
 Our extension only handles your data locally, nothing gets send over the [internet](VerifyNoInternet.md).
 We have gone to great extend to store your passwords in a [secure way](HowArePasswordsStored.md), however mistakes are human
-and we can't 100% garantee we haven't made any mistakes.
+and we can't 100% guarantee we haven't made any mistakes.
 
 ____
 
@@ -12,7 +12,7 @@ What data do we use?
 We use the url of the current open tab whenever you open Password Manager,
 so we can prefill the domain fields when loading, editing or saving a password. The hostname of the url
 of the url is saved whenever you save a new password or edit a password. You can always edit
-the domain filed if you dont want a domain to be saved.
+the domain filed if you don't want a domain to be saved.
 
 We save the currently selected username whenever you
 - Add a username
