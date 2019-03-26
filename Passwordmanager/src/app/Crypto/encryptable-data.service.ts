@@ -10,7 +10,7 @@ export class EncryptableDataService {
   private _padding: string;
   private _data: string;
   private _paddingSize: number;
-  private readonly MAX_PADDING_SIZE: number = 255;
+  private readonly MAX_PADDING_SIZE: number = 32;
   private readonly PADDING_SIZE_IDENTIFIER_NUM_DIGITS: number = 3;
   private readonly RADIX: number = 10;
 

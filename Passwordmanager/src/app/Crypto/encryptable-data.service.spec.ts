@@ -26,12 +26,12 @@ describe('EncryptableDataService', () => {
     service.data = 'ab';
     expect(paddingSpy).toHaveBeenCalledTimes(1);
     expect(service.data).toEqual('ab');
-    expect(service.paddingSize).toEqual(253);
+    expect(service.paddingSize).toEqual(30);
   });
 
   it('should not have a padding more then 255 long', () => {
     service.data = ('a'.repeat(256));
-    expect(service.paddingSize).toEqual(254);
+    expect(service.paddingSize).toEqual(32);
   });
 
   it('should prepend 0 when a number is too short', () => {
@@ -45,7 +45,7 @@ describe('EncryptableDataService', () => {
   it('Should encrypt itself', () => {
     service.data = 'Hello World';
     const encrypted = service.encrypt('abc');
-    expect(encrypted.substr(0, 3)).toEqual('244');
+    expect(encrypted.substr(0, 3)).toEqual('021');
     expect(encrypted).not.toEqual('Hello World');
   });
 

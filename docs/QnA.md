@@ -19,8 +19,7 @@ This also is among the few that share how passwords are encrypted.
 
 __q:__ How are my passwords stored?
 
-__a:__ We use AES-256 with CBC mode and PKCS5 padding from the [CryptoJS](https://www.npmjs.com/package/crypto-js) module to encrypt your passwords.
-Those encrypted passwords are stored in local storage and can be imported and exported from the settings panel.
+__a:__ Please read [How are passwords stored?](HowArePasswordsStored.md)
 
 __q:__ How to chose a password for my masterpassword?
 
