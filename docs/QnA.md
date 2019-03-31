@@ -41,6 +41,6 @@ __a:__ Of course by using it, you pay for it, which is the main way to support m
 
 In future releases I want to add translations for different languages, maybe you could help with translating to a language you know.
 
-__q:__ I found a bug/error, where can I report it?
+__q:__ I found a bug/error/vulnerability, where can I report it?
 
 __a:__ Please mail to [EKVaultManager@gmail.com](mailto:EKVaultManager@gmail.com).
