@@ -1,8 +1,0 @@
-- Popup styling (width, height, inside width)
-- Backup reminder popup
-- Settings: auto backup after changes
-- Settings: remind me to backup
-- First time: Popup set username
-- More tests
-- Test release
-- Release 
