@@ -7,7 +7,7 @@
     "build:production": "ng build --prod && copy ..\\manifest.json dist\\Passwordmanager",
     "build": "ng build && copy ..\\manifest.json dist\\Passwordmanager",
     "test": "ng test --code-coverage --browsers Chrome",
-    "test:ci": "ng test --browsers PhantomJS --watch=false --singleRun",
+    "test:ci": "ng test --browsers PhantomJS --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "sonar": "sonar-scanner.bat -D\"sonar.projectKey=passwordmanager\" -D\"sonar.sources=src/\" -D\"sonar.tests=src\" -D\"sonar.test.inclusions=src/**.spec.ts\" -D\"sonar.typescript.lcov.reportPaths=coverage/lcov.info\" -D\"sonar.host.url=http://localhost:9000\" -D\"sonar.login=ef16f78a52aec528f39f17fb40492d3e067d7b5c\""
