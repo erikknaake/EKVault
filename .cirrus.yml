@@ -5,5 +5,4 @@ check_task:
   node_modules_cache:
     folder: node_modules
     fingerprint_script: cat package-lock.json
-    populate_script: npm install
-  script: npm run build:production && npm run test:ci && npm run lint
+  script: cd Passwordmanager && npm i && npm run build:production && npm run test:ci && npm run lint
