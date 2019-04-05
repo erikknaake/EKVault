@@ -1,7 +1,7 @@
 declare let window;
 
 export function getTabs() {
-  if (window.chrome.tabs != null)
+  if (window.chrome != null && window.chrome.tabs != null)
     return window.chrome.tabs;
   else { // For ease of testing
     return {
