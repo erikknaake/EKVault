@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:production": "ng build --prod && copy ..\\manifest.json dist\\Passwordmanager",
-    "build": "ng build && copy ..\\manifest.json dist\\Passwordmanager",
+    "build:windows:production": "ng build --prod && copy ..\\manifest.json dist\\Passwordmanager",
+    "build:linux:production": "ng build --prod && cp ../manifest.json dist/Passwordmanager",
+    "build:windows": "ng build && copy ..\\manifest.json dist\\Passwordmanager",
+    "build:linux": "ng build && cp ../manifest.json dist/Passwordmanager",
     "test": "ng test --code-coverage --browsers Chrome",
     "test:ci": "ng test --browsers PhantomJS --watch=false",
     "lint": "ng lint",
