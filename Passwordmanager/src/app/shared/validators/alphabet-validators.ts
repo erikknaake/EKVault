@@ -10,10 +10,10 @@ export function noJSON(): ValidatorFn {
 
 export function noDoubleCharacters(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
-    let isAllowed: boolean = true;
-    let checkedChars: string = '';
-    for(let character of control.value) {
-      if(checkedChars.includes(character)) {
+    let isAllowed = true;
+    let checkedChars = '';
+    for (const character of control.value) {
+      if (checkedChars.includes(character)) {
         isAllowed = false;
         break;
       } else {

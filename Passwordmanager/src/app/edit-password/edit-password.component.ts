@@ -10,17 +10,20 @@ import {PasswordFileService} from "../shared/password/password-file.service";
   styleUrls: ['./edit-password.component.scss']
 })
 export class EditPasswordComponent implements OnInit {
-  public strength: number = 0;
+  public strength: number;
   constructor(public readonly editPasswordService: EditPasswordService,
               public readonly passwordUIHelper: PasswordUIHelperService,
               private readonly router: Router,
               private readonly passwordFile: PasswordFileService) { }
 
   ngOnInit() {
+    this.strength = 0;
   }
 
   public saveChanges(): void {
-    this.passwordFile.changePassword(this.editPasswordService.domain, this.editPasswordService.username, this.editPasswordService.password).catch();
+    this.passwordFile.changePassword(this.editPasswordService.domain,
+      this.editPasswordService.username,
+      this.editPasswordService.password).catch();
     this.discardChanges();
   }
 

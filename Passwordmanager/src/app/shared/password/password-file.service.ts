@@ -22,12 +22,16 @@ export class PasswordFileService {
               private readonly changeUsernamePopup: ReplaceUsernamePopupService) {
   }
 
+  public static isPasswordIdentifiedBy(x: IPassword, domain: string, username: string): boolean {
+    return x.domain === domain && x.username === username;
+  }
+
   public getPassword(domain: string, username: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       this.loadPasswords().then((passwords: IDecryptedPasswords) => {
         resolve(passwords.passwords.filter((x: IPassword) => PasswordFileService.isPasswordIdentifiedBy(x, domain, username))[0].password);
       }).catch((reason) => {
-        reject(reason)
+        reject(reason);
       });
     });
   }
@@ -35,7 +39,8 @@ export class PasswordFileService {
   public changePassword(domain: string, username: string, newPassword: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.loadPasswords().then((passwords: IDecryptedPasswords) => {
-        passwords.passwords[passwords.passwords.findIndex((x: IPassword) => PasswordFileService.isPasswordIdentifiedBy(x, domain, username))].password = newPassword;
+        passwords.passwords[passwords.passwords.findIndex((x: IPassword) =>
+          PasswordFileService.isPasswordIdentifiedBy(x, domain, username))].password = newPassword;
         this.storePasswords(passwords);
         resolve(true);
       }).catch((reason) => {
@@ -47,9 +52,9 @@ export class PasswordFileService {
   public changeUsername(oldUsername: string, newUsername: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.loadPasswords().then((passwords: IDecryptedPasswords) => {
-        let numberOfUsernamesChanged: number = 0;
-        let newUsernameAlreadyUsed: boolean = false;
-        for (let iPassword of passwords.passwords) {
+        let numberOfUsernamesChanged = 0;
+        let newUsernameAlreadyUsed = false;
+        for (const iPassword of passwords.passwords) {
           if (iPassword.username === oldUsername) {
             iPassword.username = newUsername;
             numberOfUsernamesChanged++;
@@ -74,7 +79,7 @@ export class PasswordFileService {
       this.changeUsernamePopup.popup().then((accepted) => {
         if (accepted) {
           this.loadPasswords().then((passwords: IDecryptedPasswords) => {
-            for (let iPassword of passwords.passwords) {
+            for (const iPassword of passwords.passwords) {
               if (iPassword.username === username) {
                 passwords.passwords = ArrayHelper.removeItem(passwords.passwords, iPassword);
               }
@@ -87,14 +92,10 @@ export class PasswordFileService {
         } else {
           reject('Not accepted');
         }
-      }).catch((reason)=> {
+      }).catch((reason) => {
         reject(reason);
       });
     });
-  }
-
-  public static isPasswordIdentifiedBy(x: IPassword, domain: string, username: string): boolean {
-    return x.domain === domain && x.username === username;
   }
 
   public addPassword(domain: string, password: string, username: string): Promise<void> {
@@ -117,13 +118,14 @@ export class PasswordFileService {
    * Stores the given passwordDTO array by converting it to json and then encrypting it with the given masterpassword
    * @param passwords
    *
-   * For releases futher down the road, implement splitting this data so more passwords can be stored since the limit is 8kB per item in localStorage
+   * For releases futher down the road,
+   * implement splitting this data so more passwords can be stored since the limit is 8kB per item in localStorage
    */
   private storePasswords(passwords: IDecryptedPasswords): void {
     const encryptablePasswords = EncryptableDataService.newInstance();
     encryptablePasswords.data = JSON.stringify(passwords.passwords);
     const encryptedPasswords = encryptablePasswords.encrypt(passwords.masterPassword);
-    localStorage.setItem(this.storageKey, encryptedPasswords)
+    localStorage.setItem(this.storageKey, encryptedPasswords);
   }
 
   private loadPasswords(): Promise<IDecryptedPasswords> {

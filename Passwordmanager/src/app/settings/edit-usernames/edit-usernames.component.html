@@ -9,7 +9,7 @@
           {{username}}
         </mat-option>
       </mat-select>
-      <help matSuffix tooltip="This username will be the default value used when generating or loading passwords"></help>
+      <app-help matSuffix tooltip="This username will be the default value used when generating or loading passwords"></app-help>
     </mat-form-field>
     <button mat-raised-button (click)="this.loadDefaultUsername();">Cancel</button>
     <button mat-raised-button (click)="this.saveDefaultUsername();">Ok</button>

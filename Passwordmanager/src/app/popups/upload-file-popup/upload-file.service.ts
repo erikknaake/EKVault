@@ -25,14 +25,12 @@ export class UploadFileService {
   public requestfile(extension: string, label: string): Promise<IFile> {
     return new Promise<IFile>(((resolve, reject) => {
       this.getFile(extension, label).then((file: IFile) => {
-        if(file == null)
+        if (file == null) {
           reject('No file given');
-        else resolve(file);
+        } else {
+          resolve(file);
+        }
       });
     }));
-    // this.requestedExtension.extension = extension;
-    // this.requestedExtension.label = label;
-    // const dialogRef = this.matDialog.open(UploadFilePopupComponent, this.matConfigService.getMatConfig());
-    // return dialogRef.afterClosed().toPromise();
   }
 }

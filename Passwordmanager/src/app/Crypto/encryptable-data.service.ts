@@ -18,13 +18,36 @@ export class EncryptableDataService {
     this.data = '';
   }
 
+  /**
+   * Creates an instance of Encryptable data by decrypting a string with the given key
+   * @param encryptableData - string in the format gotten from @see encrypt
+   * @param key - key to decrypt the string with
+   */
+  public static fromString(encryptableData: string, key: string): EncryptableDataService {
+    const result: EncryptableDataService = new EncryptableDataService();
+    result._paddingSize = parseInt(encryptableData.substr(0, result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), result.RADIX);
+    const decrypted: string = EncrypterService.decrypt(
+      encryptableData.substr(result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length),
+      key);
+    result._data = decrypted.substr(0, decrypted.length - result._paddingSize);
+    if (result._data === "") {
+      result._data = "[]";
+    }
+    result.updatePadding();
+    return result;
+  }
+
+  public static newInstance(): EncryptableDataService {
+    return new EncryptableDataService();
+  }
+
   get data(): string {
     return this._data;
   }
 
   set data(value: string) {
     this._data = value;
-    this.updatePadding()
+    this.updatePadding();
   }
 
   get paddingSize(): number {
@@ -41,41 +64,24 @@ export class EncryptableDataService {
   }
 
   public toString(): string {
-    return this.data + this.padding
+    return this.data + this.padding;
   }
 
   /**
-   * Encrypts the data, notice that the padding size isnt encrypted since that would give limit the options for the key for the first 3 digits
+   * Encrypts the data, notice that the padding size isnt
+   * encrypted since that would limit the options for the key for the first 3 digits
    * @param key encryption key that is used to encrypt and decrypt the data
    */
   public encrypt(key: string): string {
-    return this.makeNumberFixedLengthString(this.paddingSize, this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS) + EncrypterService.encrypt(this.toString(), key);
-  }
-
-  /**
-   * Creates an instance of Encryptable data by decrypting a string with the given key
-   * @param encryptableData
-   * @param key
-   */
-  public static fromString(encryptableData: string, key: string): EncryptableDataService {
-    let result: EncryptableDataService = new EncryptableDataService();
-    result._paddingSize = parseInt(encryptableData.substr(0, result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS), result.RADIX);
-    const decrypted: string = EncrypterService.decrypt(encryptableData.substr(result.PADDING_SIZE_IDENTIFIER_NUM_DIGITS, encryptableData.length), key);
-    result._data = decrypted.substr(0, decrypted.length - result._paddingSize);
-    if (result._data === "")
-      result._data = "[]";
-    result.updatePadding();
-    return result;
-  }
-
-  public static newInstance(): EncryptableDataService {
-    return new EncryptableDataService();
+    return this.makeNumberFixedLengthString(this.paddingSize, this.PADDING_SIZE_IDENTIFIER_NUM_DIGITS)
+      + EncrypterService.encrypt(this.toString(), key);
   }
 
   private makeNumberFixedLengthString(data: number, length: number): string {
     let result: string = data.toString(this.RADIX);
-    while (result.length < length)
+    while (result.length < length) {
       result = "0" + result;
+    }
     return result;
   }
 }

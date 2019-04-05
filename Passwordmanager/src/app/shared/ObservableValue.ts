@@ -3,7 +3,7 @@ import {ISubscriber} from "./ISubscriber";
 export class ObservableValue<T> {
   private subscribers: ISubscriber<T>[];
   private _value: T;
-  private highestNumber: number = 0;
+  private highestNumber = 0;
 
   constructor() {
     this.subscribers = [];
@@ -33,7 +33,7 @@ export class ObservableValue<T> {
 
   public unsubscribe(subscriptionToRemove: ISubscriber<T>): void {
     const newSubscribers: ISubscriber<T>[] = [];
-    for (let subsription of this.subscribers) {
+    for (const subsription of this.subscribers) {
       if (subsription.nr !== subscriptionToRemove.nr) {
         newSubscribers.push(subsription);
       }

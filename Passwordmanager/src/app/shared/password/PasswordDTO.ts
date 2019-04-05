@@ -1,6 +1,6 @@
 import {IPassword} from "./IPassword";
 
-export class PasswordDTO implements IPassword{
+export class PasswordDTO implements IPassword {
 
   public password: string;
   public domain: string;
@@ -12,12 +12,13 @@ export class PasswordDTO implements IPassword{
     this.username = username;
   }
 
-  public toString() {
-    return JSON.stringify(this);
-  }
-
   public static fromString(data: string) {
     const dataJSON = JSON.parse(data);
     return new PasswordDTO(dataJSON['password'], dataJSON['domain'], dataJSON['username']);
   }
+
+  public toString() {
+    return JSON.stringify(this);
+  }
+
 }

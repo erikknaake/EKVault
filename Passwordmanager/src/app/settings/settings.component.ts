@@ -27,14 +27,15 @@ export class SettingsComponent implements OnInit {
               private readonly passwordFile: PasswordFileService,
               private readonly uploadService: UploadFileService,
               private readonly snackbar: SnackbarService,
-              public readonly alphabetService: AlphabetService) { }
+              public readonly alphabetService: AlphabetService) {
+  }
 
   ngOnInit() {
     this.passwordLengthControl.setValue(this.settings.passwordLength.value);
   }
 
   public getPasswordLengthError(): string {
-    if(this.passwordLengthControl.hasError('required')) {
+    if (this.passwordLengthControl.hasError('required')) {
       return 'You must enter a value';
     } else if (this.passwordLengthControl.hasError('max')) {
       return `The password length can at most be ${PasswordRequirementsService.MAX_PASSWORD_LENGTH} characters`;
@@ -79,7 +80,7 @@ export class SettingsComponent implements OnInit {
   public saveSettings(): void {
     this.settings.passwordLengthValue = this.passwordLengthControl.value;
     this.settings.save();
-    this.snackbar.open('Saved settings', 'Ok')
+    this.snackbar.open('Saved settings', 'Ok');
   }
 
   public discardSettings(): void {
@@ -94,7 +95,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public changeTheme(isDarkTheme: boolean): void {
-      this.settings.isDarkThemeValue = isDarkTheme;
-      this.settings.save();
+    this.settings.isDarkThemeValue = isDarkTheme;
+    this.settings.save();
   }
 }

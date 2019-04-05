@@ -6,7 +6,7 @@ import {Injectable} from "@angular/core";
 })
 export class AlphabetService {
 
-  public invalid: boolean = false;
+  public invalid = false;
 
   public static getAlphabet(): string {
     return JSON.parse(localStorage.getItem(SettingsService.STORAGE_KEY)).alphabet;

@@ -13,6 +13,6 @@ export class MatConfigService {
   }
 
   public getMatSnackBarConfig(): MatSnackBarConfig {
-    return {duration: 5000}
+    return {duration: 5000};
   }
 }
