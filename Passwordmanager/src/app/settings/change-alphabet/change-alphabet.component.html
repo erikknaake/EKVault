@@ -1,7 +1,7 @@
 <div class="column">
   <mat-form-field>
     <input matInput placeholder="Alphabet" type="text" [formControl]="alphabetControl" required>
-    <help matSuffix tooltip="The alphabet is the collection of characters used to choose characters from when generating new passwords"></help>
+    <app-help matSuffix tooltip="The alphabet is the collection of characters used to choose characters from when generating new passwords"></app-help>
     <mat-error *ngIf="alphabetControl.invalid">{{getAlphabetError()}}</mat-error>
   </mat-form-field>
 

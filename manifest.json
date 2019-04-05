@@ -3,7 +3,7 @@
   "name": "Password Manager",
   "short_name": "Password Manager",
   "version": "0.0.3",
-  "description": "Password Manager is a chrome extension that stores passwords in a encrypted way",
+  "description": "Password Manager is an extension that your passwords stores passwords in a encrypted way. You only have to remember your master password.",
   "author": "Erik Knaake",
   "browser_action": {
     "default_popup": "index.html"

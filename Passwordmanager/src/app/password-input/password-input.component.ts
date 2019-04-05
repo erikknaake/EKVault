@@ -3,7 +3,7 @@ import {FormControl} from "@angular/forms";
 import {PasswordFormControlFactory} from "../shared/validators/passwordFormControlFactory";
 
 @Component({
-  selector: 'password-input',
+  selector: 'app-password-input',
   templateUrl: './password-input.component.html',
   styleUrls: ['./password-input.component.scss']
 })
@@ -15,10 +15,10 @@ export class PasswordInputComponent implements OnInit {
   public control: FormControl;
 
   @Input()
-  public type: string = 'password';
+  public type = 'password';
 
   @Input()
-  public value: string = '';
+  public value = '';
 
   constructor(public readonly passwordControlFormFactory: PasswordFormControlFactory) { }
 

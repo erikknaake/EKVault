@@ -35,9 +35,9 @@ export class NewMasterPasswordPopupComponent implements OnInit {
   }
 
   public getPasswordIdenticalError(): string {
-    if(this.passwordIdenticalControl.hasError('required')) {
+    if (this.passwordIdenticalControl.hasError('required')) {
       return 'You must enter a value';
-    } else if(this.passwordIdenticalControl.hasError('identical')) {
+    } else if (this.passwordIdenticalControl.hasError('identical')) {
       return 'The passwords must be identical';
     }
   }

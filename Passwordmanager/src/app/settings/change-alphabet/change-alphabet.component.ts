@@ -16,10 +16,10 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
   public static readonly MIN_ALPHABET_LENGTH = 16;
   public static readonly MAX_ALPHABET_LENGTH = 256; // After 256 Nanoid (CSPRNG) becomes insecure
 
-  private _containsAllCapitals: boolean = false;
-  private _containsAllLetters: boolean = false;
-  private _containsAllNumbers: boolean = false;
-  private _containsAllSymbols: boolean = false;
+  private _containsAllCapitals = false;
+  private _containsAllLetters = false;
+  private _containsAllNumbers = false;
+  private _containsAllSymbols = false;
 
   private alphabetSubscription: ISubscriber<string>;
 
@@ -36,6 +36,22 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
               ) {
   }
 
+  private static stringCharactersInString(str: string, part: string): boolean {
+    let charactersFound = '';
+    for (let i = 0; i < part.length; i++) {
+      for (let j = 0; j < str.length; j++) {
+        if (part[i] === str[j]) {
+          charactersFound += part[i];
+        }
+      }
+    }
+    return charactersFound === part;
+  }
+
+  private static removeCharacter(str: string, index: number): string {
+    return (str.substring(0, index) + str.substring(index + 1, str.length));
+  }
+
   ngOnInit() {
     this.alphabetControl.valueChanges.subscribe((value: string) => {
       this.settings.alphabetValue = value;
@@ -50,8 +66,9 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.alphabetSubscription != null)
+    if (this.alphabetSubscription != null) {
       this.settings.alphabet.unsubscribe(this.alphabetSubscription);
+    }
   }
 
   private adjustSliders() {
@@ -61,28 +78,16 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
     this._containsAllSymbols = ChangeAlphabetComponent.stringCharactersInString(this.settings.alphabet.value, SettingsService.SYMBOLS);
   }
 
-  private static stringCharactersInString(str: string, part: string): boolean {
-    let charactersFound: string = '';
-    for(let i: number = 0; i < part.length; i++) {
-      for(let j: number = 0; j < str.length; j++) {
-        if(part[i] === str[j]) {
-          charactersFound += part[i];
-        }
-      }
-    }
-    return charactersFound === part;
-  }
-
   public getAlphabetError(): string {
-    if(this.alphabetControl.hasError('noJSON')) {
+    if (this.alphabetControl.hasError('noJSON')) {
       return 'An alphabet connot contain a , nor a :';
-    } else if(this.alphabetControl.hasError('noDoubleCharacters')) {
+    } else if (this.alphabetControl.hasError('noDoubleCharacters')) {
       return 'An alphabet cannot contain the same character more than once';
-    } else if(this.alphabetControl.hasError('minlength')) {
+    } else if (this.alphabetControl.hasError('minlength')) {
       return `An alphabet must be at least ${ChangeAlphabetComponent.MIN_ALPHABET_LENGTH} characters long`;
-    } else if(this.alphabetControl.hasError('maxlength')) {
+    } else if (this.alphabetControl.hasError('maxlength')) {
       return `An alphabet can at most be ${ChangeAlphabetComponent.MAX_ALPHABET_LENGTH} characters long`;
-    } else if(this.alphabetControl.hasError('required')) {
+    } else if (this.alphabetControl.hasError('required')) {
       return 'There must be an alphabet to generate passwords';
     }
   }
@@ -104,20 +109,17 @@ export class ChangeAlphabetComponent implements OnInit, OnDestroy {
   }
 
   private findAndRemoveOrAddSymbols(add: boolean, symbols: string) {
-    for(let i: number = 0; i < symbols.length; i++) {
-      for(let j: number = 0; j < this.settings.alphabet.value.length; j++) {
-        if(symbols[i] === this.settings.alphabet.value[j]) {
+    for (let i = 0; i < symbols.length; i++) {
+      for (let j = 0; j < this.settings.alphabet.value.length; j++) {
+        if (symbols[i] === this.settings.alphabet.value[j]) {
           this.settings.alphabetValue = ChangeAlphabetComponent.removeCharacter(this.settings.alphabet.value, j);
         }
       }
     }
-    if(add)
+    if (add) {
       this.settings.alphabet.value += symbols;
+    }
     this.alphabetControl.setValue(this.settings.alphabet.value);
-  }
-
-  private static removeCharacter(str: string, index: number): string {
-    return (str.substring(0, index) + str.substring(index + 1, str.length));
   }
 
   get containsAllCapitals(): boolean {

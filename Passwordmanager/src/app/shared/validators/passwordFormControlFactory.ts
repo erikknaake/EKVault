@@ -19,7 +19,7 @@ export class PasswordFormControlFactory {
   }
 
   public getPasswordError(control: FormControl): string {
-    if(control.hasError('required')) {
+    if (control.hasError('required')) {
       return 'You must enter a value';
     } else if (control.hasError('maxlength')) {
       return `A password can at most be ${PasswordRequirementsService.MAX_PASSWORD_LENGTH} characters`;

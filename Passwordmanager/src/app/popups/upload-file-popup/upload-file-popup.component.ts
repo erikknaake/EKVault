@@ -12,8 +12,8 @@ export class UploadFilePopupComponent implements OnInit {
 
   public form: FormGroup;
   public loading: boolean;
-  public invalid: boolean = false;
-  public filePresent: boolean = false;
+  public invalid = false;
+  public filePresent = false;
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(public readonly dialogRef: MatDialogRef<UploadFilePopupComponent>,
@@ -38,12 +38,12 @@ export class UploadFilePopupComponent implements OnInit {
 
   public onFileChange(event) {
     const reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
+    if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       reader.readAsText(file);
       reader.onload = () => {
         if (typeof reader.result === "string") {
-          if(file.name.includes(this.requestedExtension.extension)) {
+          if (file.name.includes(this.requestedExtension.extension)) {
             this.form.get('file').setValue({
               filename: file.name,
               filetype: file.type,
@@ -51,10 +51,8 @@ export class UploadFilePopupComponent implements OnInit {
             });
             this.invalid = false;
             this.filePresent = true;
-          }
-          else {
+          } else {
             this.invalid = true;
-            // TODO: show error, incorrect file type
           }
         }
       };

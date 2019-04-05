@@ -15,7 +15,10 @@ export class SettingsService {
   public static readonly SYMBOLS = '+=.?/;!@#$%^&*()`~ <>_-\\';
 
   private static readonly DEFAULT_PASSWORD_LENGTH = 28;
-  private static readonly DEFAULT_ALPHABET = SettingsService.CAPITALS + SettingsService.LETTERS + SettingsService.NUMBERS + SettingsService.SYMBOLS;
+  private static readonly DEFAULT_ALPHABET = SettingsService.CAPITALS
+    + SettingsService.LETTERS
+    + SettingsService.NUMBERS
+    + SettingsService.SYMBOLS;
 
   private _passwordLength: ObservableValue<number> = new ObservableValue<number>();
   private _defaultUsername: ObservableValue<string> = new ObservableValue<string>();
@@ -48,7 +51,7 @@ export class SettingsService {
 
   public restoreJSON(json: string): void {
     const loaded: ISettings = JSON.parse(json);
-    if(loaded == null) {
+    if (loaded == null) {
       this.setDefault();
     } else {
       this.passwordLengthValue = loaded.passwordLength;
@@ -76,12 +79,12 @@ export class SettingsService {
   public addUsername(username: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       // The username already exists
-      if(this.usernames.value.includes(username)) {
+      if (this.usernames.value.includes(username)) {
         reject('username');
       } else {
         this.usernames.value.push(username);
         // Also set as default if its the first ever username
-        if(this.defaultUsername.value == null) {
+        if (this.defaultUsername.value == null) {
           this.defaultUsernameValue = username;
         }
         this.save();
@@ -135,7 +138,7 @@ export class SettingsService {
 
   set isDarkThemeValue(value: boolean) {
     this._isDarkTheme.value = value;
-    if(value) {
+    if (value) {
       document.body.classList.add('dark-theme');
     } else {
       document.body.classList.remove('dark-theme');

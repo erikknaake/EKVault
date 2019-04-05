@@ -26,8 +26,9 @@ export class EditUsernameComponent implements OnInit {
       this.snackbar.open('Username changed', 'Ok');
       this.oldUsername = this.username;
     }).catch((reason) => {
-      if(reason === 'username')
-        this.snackbar.open('Username is al in gebruik', 'Ok');
+      if (reason === 'username') {
+        this.snackbar.open('Username is already used', 'Ok');
+      }
     });
   }
 
@@ -38,7 +39,7 @@ export class EditUsernameComponent implements OnInit {
   public deleteUsername(): void {
     this.passwordFile.deleteUsername(this.username).then(() => {
       this.settings.deleteUsername(this.username);
-      this.snackbar.open('Deleted username', 'Ok')
+      this.snackbar.open('Deleted username', 'Ok');
     }).catch(() => {
 
     });
