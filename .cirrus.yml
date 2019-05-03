@@ -4,5 +4,5 @@ container:
 check_task:
   node_modules_cache:
     folder: node_modules
-    fingerprint_script: cat Passwordmanager/package-lock.json
-  script: cd Passwordmanager && npm i && npm run build:linux:production && npm run test:ci && npm run lint
+    fingerprint_script: cat EKVault/package-lock.json
+  script: cd EKVault && npm i && npm run build:linux:production && npm run test:ci && npm run lint
