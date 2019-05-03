@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Passwordmanager": {
+    "EKVault": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Passwordmanager",
+            "outputPath": "dist/EKVault",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Passwordmanager:build"
+            "browserTarget": "EKVault:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Passwordmanager:build:production"
+              "browserTarget": "EKVault:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Passwordmanager:build"
+            "browserTarget": "EKVault:build"
           }
         },
         "test": {
@@ -110,7 +110,7 @@
         }
       }
     },
-    "Passwordmanager-e2e": {
+    "EKVault-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -119,11 +119,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Passwordmanager:serve"
+            "devServerTarget": "EKVault:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Passwordmanager:serve:production"
+              "devServerTarget": "EKVault:serve:production"
             }
           }
         },
@@ -139,5 +139,5 @@
       }
     }
   },
-  "defaultProject": "Passwordmanager"
+  "defaultProject": "EKVault"
 }

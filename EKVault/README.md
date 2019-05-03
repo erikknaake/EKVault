@@ -1,6 +1,6 @@
 # EKVault
 
-This project was password with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
+This project was produced with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
 ## Development server
 
