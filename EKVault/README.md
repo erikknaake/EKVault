@@ -1,4 +1,4 @@
-# Passwordmanager
+# EKVault
 
 This project was password with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
