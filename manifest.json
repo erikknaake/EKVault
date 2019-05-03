@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Password Manager",
-  "short_name": "Password Manager",
-  "version": "0.0.3",
-  "description": "Password Manager is a chrome extension that stores passwords in a encrypted way",
+  "name": "EKVault",
+  "short_name": "EKVault",
+  "version": "0.0.4",
+  "description": "EKVault, a completly offline password manager.",
   "author": "Erik Knaake",
   "browser_action": {
     "default_popup": "index.html"
@@ -13,8 +13,6 @@
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
-    "assets/css/*",
-    "assets/js/*",
     "assets/fonts/*"
   ],
   "icons": {

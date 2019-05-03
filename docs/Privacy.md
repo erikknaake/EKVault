@@ -9,7 +9,7 @@ ____
 
 What data do we use?
 
-We use the url of the current open tab whenever you open Password Manager,
+We use the url of the current open tab whenever you open EKVault,
 so we can prefill the domain fields when loading, editing or saving a password. The hostname of the url
 of the url is saved whenever you save a new password or edit a password. You can always edit
 the domain field if you don't want a domain to be saved. Domains are encrypted together with the password and username.

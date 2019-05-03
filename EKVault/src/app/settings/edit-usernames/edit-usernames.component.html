@@ -1,0 +1,40 @@
+<div class="column">
+  <div class="column">
+    <mat-form-field>
+      <mat-label>
+        Default username
+      </mat-label>
+      <mat-select [(value)]="this.settings.defaultUsername.value">
+        <mat-option *ngFor="let username of this.settings.usernames.value" value="{{username}}">
+          {{username}}
+        </mat-option>
+      </mat-select>
+      <app-help matSuffix tooltip="This username will be the default value used when generating or loading passwords"></app-help>
+    </mat-form-field>
+    <button mat-raised-button (click)="this.loadDefaultUsername();">Cancel</button>
+    <button mat-raised-button (click)="this.saveDefaultUsername();">Ok</button>
+  </div>
+
+  <div class="column section">
+    <h3 class="mat-h3">Add username</h3>
+    <mat-form-field>
+      <input matInput type="text" #newUsername placeholder="New username" [formControl]="usernameControl" required>
+      <mat-error *ngIf="usernameControl.invalid">An username is required</mat-error>
+    </mat-form-field>
+    <button mat-raised-button (click)="addUsername(newUsername.value)" [disabled]="usernameControl.invalid">Add username</button>
+  </div>
+
+  <mat-accordion class="section">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Edit usernames
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let username of this.settings.usernames.value">
+        <app-edit-username [username]="username"></app-edit-username>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

@@ -1,7 +1,7 @@
 Because we want everyone to be able to see we don't use an internet connection,
 we went ahead and downloaded every font and icon so it can be served locally.
 
-Because we want non techsavy people to be able to verify that Password Manager indeed does not
+Because we want non techsavy people to be able to verify that EKVault indeed does not
 use any internet connection we wrote this short guide.
 
 1. Open this extension.

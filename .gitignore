@@ -1,6 +1,7 @@
 .idea
 **/dist
 **/node_modules
-Passwordmanager/\.scannerwork/scanner-report/
+EKVault/\.scannerwork/scanner-report/
 
-Passwordmanager/\.scannerwork/
+EKVault/\.scannerwork/
+EKVault/coverage/

@@ -1,0 +1,139 @@
+<div class="matcard">
+  <mat-card>
+    <h1 class="mat-h1">Settings</h1>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Password generation
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="column">
+          <mat-form-field>
+            <input matInput placeholder="Password length" type="number" [formControl]="passwordLengthControl"
+                   #passwordLength required>
+            <app-help matSuffix tooltip="The length a newly generated password should be"></app-help>
+            <mat-error *ngIf="passwordLengthControl.invalid">{{getPasswordLengthError()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <app-change-alphabet class="settings-row"></app-change-alphabet>
+
+        <div class="column">
+          <button mat-raised-button (click)="discardSettings()">Discard changes</button>
+          <button mat-raised-button [disabled]="passwordLengthControl.invalid || this.alphabetService.invalid"
+                  (click)="saveSettings()">Save changes
+          </button>
+          <button mat-raised-button (click)="restoreDefaultSettings()">Restore defaults</button>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Change masterpassword
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="column">
+          <button mat-raised-button (click)="changeMasterpassword()">Change masterpassword</button>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Usernames
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-edit-usernames></app-edit-usernames>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Import/Export
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Settings
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="column">
+            <button mat-raised-button (click)="importSettings()">Import Settings</button>
+            <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Passwords
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="column">
+            <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
+            <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Theming
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-slide-toggle [checked]="this.settings.isDarkTheme.value" (change)="changeTheme($event.checked)">
+          Dark-theme
+        </mat-slide-toggle>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Info
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Version 0.0.4</p>
+        <p>View the <a href="https://erikknaake.github.io/EKVault/">wiki</a>.</p>
+        <p>Because EKVault runs in your browser, we recommend making backups of your passwords regularly.
+          If an attacker manages to modify the EKVault code your passwords might be lost. You can also lose your
+          passwords when
+          you clear the local storage of this extension
+        </p>
+        <p>Support this project by <a href="https://paypal.me/EKVaultManager">donating</a></p>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Legal
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Privacy
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Please read our <a href="https://erikknaake.github.io/EKVault/Privacy">privacy statement</a>.</p>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Licensing
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>This product, including all its components, cannot be redistributed without the explicit permission of
+              its creator.</p>
+            <p>When you get permission to redistribute this product, the creator can make condition, including, but not
+              limited to,
+              a percentage of income and statistical information.</p>
+            <p>The creator of this product can at all times revoke the permission to redistribute his product.</p>
+            <p>The creator of this product cannot be hold responsible for any flaws, bugs, weaknesses nor for any other
+              issues in this product.</p>
+            <p>The creator of this product remains his rights to this product when it is modified or changed in any
+              other way.</p>
+            <p>&copy; Erik Knaake 2019</p>
+          </mat-expansion-panel>
+        </mat-expansion-panel>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-card>
+</div>
