@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "EKVault",
   "short_name": "EKVault",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "EKVault, a completly offline password manager.",
   "author": "Erik Knaake",
   "browser_action": {
