@@ -24,6 +24,7 @@ import {ReplaceUsernamesPopupComponent} from './popups/replace-usernames-popup/r
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { PasswordInputComponent } from './password-input/password-input.component';
 import { HelpComponent } from './help/help.component';
+import { BackupReminderPopUpComponent } from './backup-reminder/backup-reminder-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HelpComponent } from './help/help.component';
     ReplaceUsernamesPopupComponent,
     EditPasswordComponent,
     PasswordInputComponent,
-    HelpComponent
+    HelpComponent,
+    BackupReminderPopUpComponent
   ],
   imports: [
     BrowserModule,

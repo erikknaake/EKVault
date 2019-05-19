@@ -16,6 +16,8 @@ export class SettingsService {
   public static readonly DEFAULT_IS_DARK_THEME = true;
   public static readonly DEFAULT_USERNAMES = [];
   public static readonly DEFAULT_DEFAULT_USERNAME = null;
+  public static readonly DEFAULT_REMIND_BACKUP_TIME = 30;
+  public static readonly DEFAULT_DO_AUTO_BACKUP = false;
 
   private static readonly DEFAULT_PASSWORD_LENGTH = 28;
   private static readonly DEFAULT_ALPHABET = SettingsService.CAPITALS
@@ -28,6 +30,8 @@ export class SettingsService {
   private _usernames: ObservableValue<string[]> = new ObservableValue<string[]>();
   private _alphabet: ObservableValue<string> = new ObservableValue<string>();
   private _isDarkTheme: ObservableValue<boolean> = new ObservableValue<boolean>();
+  private _remindBackUpTime: ObservableValue<number> = new ObservableValue<number>(); // How often to remind to make backups in days, where -1 is never
+  private _doAutoBackUp: ObservableValue<boolean> = new ObservableValue<boolean>();
 
   constructor() {
     this.load();
@@ -47,23 +51,25 @@ export class SettingsService {
       passwordLength: this.passwordLength.value,
       defaultUsername: this.defaultUsername.value,
       usernames: this.usernames.value,
-      isDarkTheme: this.isDarkTheme.value
+      isDarkTheme: this.isDarkTheme.value,
+      remindBackUpTime: this.remindBackUpTime.value,
+      doAutoBackUp: this.doAutoBackUp.value
     };
     return JSON.stringify(pureObject);
   }
 
   public restoreJSON(json: string): void {
     const loaded: ISettings = JSON.parse(json);
-    if (loaded == null) {
-      this.setDefault();
-    } else {
+    if (loaded != null) {
       this.passwordLengthValue = loaded.passwordLength;
       this.alphabetValue = loaded.alphabet;
       this.defaultUsernameValue = loaded.defaultUsername;
       this.usernamesValue = loaded.usernames;
       this.isDarkThemeValue = loaded.isDarkTheme;
+      this.remindBackUpTimeValue = loaded.remindBackUpTime;
+      this.doAutoBackUpValue = loaded.doAutoBackUp;
     }
-    //this.setUnsetToDefault();
+    this.setUnsetToDefault();
     this.save();
   }
 
@@ -73,11 +79,27 @@ export class SettingsService {
     this.defaultUsernameValue = SettingsService.DEFAULT_DEFAULT_USERNAME;
     this.usernamesValue = SettingsService.DEFAULT_USERNAMES;
     this.isDarkThemeValue = SettingsService.DEFAULT_IS_DARK_THEME;
+    this.remindBackUpTimeValue = SettingsService.DEFAULT_REMIND_BACKUP_TIME;
+    this.doAutoBackUpValue = SettingsService.DEFAULT_DO_AUTO_BACKUP;
   }
 
   public setUnsetToDefault(): void {
-
+    if(this.passwordLength.value == null)
+      this.passwordLengthValue = SettingsService.DEFAULT_PASSWORD_LENGTH;
+    if(this.alphabet.value == null)
+      this.alphabetValue = SettingsService.DEFAULT_ALPHABET;
+    if(this.defaultUsername.value == null)
+      this.defaultUsernameValue = SettingsService.DEFAULT_DEFAULT_USERNAME;
+    if(this.usernames.value == null)
+      this.usernamesValue = SettingsService.DEFAULT_USERNAMES;
+    if(this.isDarkTheme.value == null)
+      this.isDarkThemeValue = SettingsService.DEFAULT_IS_DARK_THEME;
+    if(this.remindBackUpTime.value == null)
+      this.remindBackUpTimeValue = SettingsService.DEFAULT_REMIND_BACKUP_TIME;
+    if(this.doAutoBackUp.value == null)
+      this.doAutoBackUpValue = SettingsService.DEFAULT_DO_AUTO_BACKUP;
   }
+
 
   public changeUsername(oldUsername: string, newUsername: string): void {
     this._usernames.value[this._usernames.value.indexOf(oldUsername)] = newUsername;
@@ -153,4 +175,21 @@ export class SettingsService {
     }
 
   }
+
+  get remindBackUpTime(): ObservableValue<number> {
+    return this._remindBackUpTime;
+  }
+
+  set remindBackUpTimeValue(value: number) {
+    this._remindBackUpTime.value = value;
+  }
+
+  get doAutoBackUp(): ObservableValue<boolean> {
+    return this._doAutoBackUp;
+  }
+
+  set doAutoBackUpValue(value: boolean) {
+    this._doAutoBackUp.value = value;
+  }
+
 }

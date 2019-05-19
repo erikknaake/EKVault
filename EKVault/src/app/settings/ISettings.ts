@@ -4,4 +4,6 @@ export interface ISettings {
   defaultUsername: string;
   usernames: string[];
   isDarkTheme: boolean;
+  remindBackUpTime: number;
+  doAutoBackUp: boolean;
 }

@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-backup-reminder',
+  templateUrl: './backup-reminder-pop-up.component.html',
+  styleUrls: ['./backup-reminder-pop-up.component.scss']
+})
+export class BackupReminderPopUpComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

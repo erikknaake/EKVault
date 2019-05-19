@@ -19,7 +19,7 @@ describe('SettingsService', () => {
 
   describe('with usual settings', () => {
     beforeEach(() => {
-      localStorageGetItemSpy.and.returnValue('{"alphabet": "abc", "passwordLength": 10, "defaultUsername": "Erik", "usernames": ["Erik", "Knaake"], "isDarkTheme": false}');
+      localStorageGetItemSpy.and.returnValue('{"alphabet": "abc", "passwordLength": 10, "defaultUsername": "Erik", "usernames": ["Erik", "Knaake"], "isDarkTheme": false, "doAutoBackUp": true, "remindBackUpTime": 7}');
       service = TestBed.get(SettingsService);
     });
 
@@ -30,29 +30,31 @@ describe('SettingsService', () => {
       expect(service.defaultUsername.value).toEqual('Erik');
       expect(service.isDarkTheme.value).toEqual(false);
       expect(service.usernames.value).toEqual(['Erik', 'Knaake']);
+      expect(service.remindBackUpTime.value).toEqual(7);
+      expect(service.doAutoBackUp.value).toEqual(true);
       expect(localStorageGetItemSpy).toHaveBeenCalledTimes(1);
       expect(localStorageGetItemSpy).toHaveBeenCalledWith('settings');
       expect(bodyRemoveClassSpy).toHaveBeenCalledTimes(1);
       expect(bodyRemoveClassSpy).toHaveBeenCalledWith('dark-theme');
-      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Erik","Knaake"],"isDarkTheme":false}');
+      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Erik","Knaake"],"isDarkTheme":false,"remindBackUpTime":7,"doAutoBackUp":true}');
     });
 
     it('should change the username', () => {
       service.changeUsername('Erik', 'Test');
       expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
-      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Test","Knaake"],"isDarkTheme":false}');
+      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Test","Knaake"],"isDarkTheme":false,"remindBackUpTime":7,"doAutoBackUp":true}');
     });
 
     it('should delete the username', () => {
       service.deleteUsername('Erik');
       expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
-      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Knaake"],"isDarkTheme":false}');
+      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Knaake"],"isDarkTheme":false,"remindBackUpTime":7,"doAutoBackUp":true}');
     });
 
     it('should add the user', (done) => {
       service.addUsername('Test').then((value) => {
         expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
-        expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Erik","Knaake","Test"],"isDarkTheme":false}');
+        expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Erik","Knaake","Test"],"isDarkTheme":false,"remindBackUpTime":7,"doAutoBackUp":true}');
         expect(value).toEqual(true);
         done();
       }).catch(() => {
@@ -74,6 +76,29 @@ describe('SettingsService', () => {
 
   });
 
+  describe('it should still work with older version files', () => {
+    beforeEach(() => {
+      localStorageGetItemSpy.and.returnValue('{"alphabet": "abc", "passwordLength": 10, "defaultUsername": "Erik", "usernames": ["Erik", "Knaake"], "isDarkTheme": false}');
+      service = TestBed.get(SettingsService);
+    });
+
+    it('should default settings that where not in v0.0.5', () => {
+      expect(service).toBeTruthy();
+      expect(service.alphabet.value).toEqual('abc');
+      expect(service.passwordLength.value).toEqual(10);
+      expect(service.defaultUsername.value).toEqual('Erik');
+      expect(service.isDarkTheme.value).toEqual(false);
+      expect(service.usernames.value).toEqual(['Erik', 'Knaake']);
+      expect(service.remindBackUpTime.value).toEqual(30);
+      expect(service.doAutoBackUp.value).toEqual(false);
+      expect(localStorageGetItemSpy).toHaveBeenCalledTimes(1);
+      expect(localStorageGetItemSpy).toHaveBeenCalledWith('settings');
+      expect(bodyRemoveClassSpy).toHaveBeenCalledTimes(1);
+      expect(bodyRemoveClassSpy).toHaveBeenCalledWith('dark-theme');
+      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Erik","usernames":["Erik","Knaake"],"isDarkTheme":false,"remindBackUpTime":30,"doAutoBackUp":false}');
+    });
+  });
+
   describe('withoutDefaultuser', () => {
     beforeEach(() => {
       localStorageGetItemSpy.and.returnValue('{"alphabet": "abc", "passwordLength": 10, "defaultUsername": null, "usernames": ["Erik", "Knaake"], "isDarkTheme": false}');
@@ -83,7 +108,7 @@ describe('SettingsService', () => {
     it('should add the user and set it as default', (done) => {
       service.addUsername('Test').then((value) => {
         expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
-        expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Test","usernames":["Erik","Knaake","Test"],"isDarkTheme":false}');
+        expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"abc","passwordLength":10,"defaultUsername":"Test","usernames":["Erik","Knaake","Test"],"isDarkTheme":false,"remindBackUpTime":30,"doAutoBackUp":false}');
         expect(value).toEqual(true);
         done();
       }).catch(() => {
@@ -106,12 +131,14 @@ describe('SettingsService', () => {
       expect(service.defaultUsername.value).toEqual(null);
       expect(service.isDarkTheme.value).toEqual(true);
       expect(service.usernames.value).toEqual([]);
+      expect(service.remindBackUpTime.value).toEqual(30);
+      expect(service.doAutoBackUp.value).toEqual(false);
       expect(localStorageGetItemSpy).toHaveBeenCalledTimes(1);
       expect(localStorageGetItemSpy).toHaveBeenCalledWith('settings');
       expect(bodyAddClassSpy).toHaveBeenCalledTimes(1);
       expect(bodyAddClassSpy).toHaveBeenCalledWith('dark-theme');
       expect(localStorageSetItemSpy).toHaveBeenCalledTimes(1);
-      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=.?/;!@#$%^&*()`~ <>_-\\\\","passwordLength":28,"defaultUsername":null,"usernames":[],"isDarkTheme":true}');
+      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=.?/;!@#$%^&*()`~ <>_-\\\\","passwordLength":28,"defaultUsername":null,"usernames":[],"isDarkTheme":true,"remindBackUpTime":30,"doAutoBackUp":false}');
     });
   });
 
