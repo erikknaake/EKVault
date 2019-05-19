@@ -13,6 +13,9 @@ export class SettingsService {
   public static readonly LETTERS = 'abcdefghijklmnopqrstuvwxyz';
   public static readonly NUMBERS = '0123456789';
   public static readonly SYMBOLS = '+=.?/;!@#$%^&*()`~ <>_-\\';
+  public static readonly DEFAULT_IS_DARK_THEME = true;
+  public static readonly DEFAULT_USERNAMES = [];
+  public static readonly DEFAULT_DEFAULT_USERNAME = null;
 
   private static readonly DEFAULT_PASSWORD_LENGTH = 28;
   private static readonly DEFAULT_ALPHABET = SettingsService.CAPITALS
@@ -60,15 +63,20 @@ export class SettingsService {
       this.usernamesValue = loaded.usernames;
       this.isDarkThemeValue = loaded.isDarkTheme;
     }
+    //this.setUnsetToDefault();
     this.save();
   }
 
   public setDefault(): void {
     this.passwordLengthValue = SettingsService.DEFAULT_PASSWORD_LENGTH;
     this.alphabetValue = SettingsService.DEFAULT_ALPHABET;
-    this.defaultUsernameValue = null;
-    this.usernamesValue = [];
-    this.isDarkThemeValue = false;
+    this.defaultUsernameValue = SettingsService.DEFAULT_DEFAULT_USERNAME;
+    this.usernamesValue = SettingsService.DEFAULT_USERNAMES;
+    this.isDarkThemeValue = SettingsService.DEFAULT_IS_DARK_THEME;
+  }
+
+  public setUnsetToDefault(): void {
+
   }
 
   public changeUsername(oldUsername: string, newUsername: string): void {

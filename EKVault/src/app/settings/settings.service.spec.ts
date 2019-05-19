@@ -6,12 +6,14 @@ describe('SettingsService', () => {
   let localStorageGetItemSpy;
   let localStorageSetItemSpy;
   let bodyRemoveClassSpy;
+  let bodyAddClassSpy;
   let service: SettingsService;
 
   beforeEach(() => {
     localStorageGetItemSpy = spyOn(localStorage, 'getItem');
     localStorageSetItemSpy = spyOn(localStorage, 'setItem');
     bodyRemoveClassSpy = spyOn(document.body.classList, 'remove');
+    bodyAddClassSpy = spyOn(document.body.classList, 'add');
     TestBed.configureTestingModule({});
   });
 
@@ -102,21 +104,19 @@ describe('SettingsService', () => {
       expect(service.alphabet.value).toEqual('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=.?/;!@#$%^&*()`~ <>_-\\');
       expect(service.passwordLength.value).toEqual(28);
       expect(service.defaultUsername.value).toEqual(null);
-      expect(service.isDarkTheme.value).toEqual(false);
+      expect(service.isDarkTheme.value).toEqual(true);
       expect(service.usernames.value).toEqual([]);
       expect(localStorageGetItemSpy).toHaveBeenCalledTimes(1);
       expect(localStorageGetItemSpy).toHaveBeenCalledWith('settings');
-      expect(bodyRemoveClassSpy).toHaveBeenCalledTimes(1);
-      expect(bodyRemoveClassSpy).toHaveBeenCalledWith('dark-theme');
+      expect(bodyAddClassSpy).toHaveBeenCalledTimes(1);
+      expect(bodyAddClassSpy).toHaveBeenCalledWith('dark-theme');
       expect(localStorageSetItemSpy).toHaveBeenCalledTimes(1);
-      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=.?/;!@#$%^&*()`~ <>_-\\\\","passwordLength":28,"defaultUsername":null,"usernames":[],"isDarkTheme":false}');
+      expect(localStorageSetItemSpy).toHaveBeenCalledWith('settings', '{"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=.?/;!@#$%^&*()`~ <>_-\\\\","passwordLength":28,"defaultUsername":null,"usernames":[],"isDarkTheme":true}');
     });
   });
 
   describe('with dark theme settings', () => {
-    let bodyAddClassSpy;
     beforeEach(() => {
-      bodyAddClassSpy = spyOn(document.body.classList, 'add');
       localStorageGetItemSpy.and.returnValue('{"alphabet": "abc", "passwordLength": 10, "defaultUsername": "Erik", "usernames": ["Erik", "Knaake"], "isDarkTheme": true}');
       service = TestBed.get(SettingsService);
     });
