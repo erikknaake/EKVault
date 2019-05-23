@@ -6,4 +6,5 @@ export interface ISettings {
   isDarkTheme: boolean;
   remindBackUpTime: number;
   doAutoBackUp: boolean;
+  doBackupSettings: boolean;
 }

@@ -30,8 +30,9 @@ export class SettingsService {
   private _usernames: ObservableValue<string[]> = new ObservableValue<string[]>();
   private _alphabet: ObservableValue<string> = new ObservableValue<string>();
   private _isDarkTheme: ObservableValue<boolean> = new ObservableValue<boolean>();
-  private _remindBackUpTime: ObservableValue<number> = new ObservableValue<number>(); // How often to remind to make backups in days, where -1 is never
+  private _remindBackUpTime: ObservableValue<number> = new ObservableValue<number>(); // How often to remind to make backups in days, where -1 is never and -2 is every change
   private _doAutoBackUp: ObservableValue<boolean> = new ObservableValue<boolean>();
+  private _doBackupSettings: ObservableValue<boolean> = new ObservableValue<boolean>();
 
   constructor() {
     this.load();
@@ -53,7 +54,8 @@ export class SettingsService {
       usernames: this.usernames.value,
       isDarkTheme: this.isDarkTheme.value,
       remindBackUpTime: this.remindBackUpTime.value,
-      doAutoBackUp: this.doAutoBackUp.value
+      doAutoBackUp: this.doAutoBackUp.value,
+      doBackupSettings: this.doBackupSettings.value
     };
     return JSON.stringify(pureObject);
   }
@@ -173,7 +175,6 @@ export class SettingsService {
     } else {
       document.body.classList.remove('dark-theme');
     }
-
   }
 
   get remindBackUpTime(): ObservableValue<number> {
@@ -192,4 +193,11 @@ export class SettingsService {
     this._doAutoBackUp.value = value;
   }
 
+  get doBackupSettings(): ObservableValue<boolean> {
+    return this._doBackupSettings;
+  }
+
+  set doBackupSettingsValue(value: boolean) {
+    this._doBackupSettings.value = value;
+  }
 }

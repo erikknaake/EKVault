@@ -68,7 +68,8 @@ import { ImportExportComponent } from './import-export/import-export.component';
     AuthenticatePopupComponent,
     UploadFilePopupComponent,
     NewMasterPasswordPopupComponent,
-    ReplaceUsernamesPopupComponent
+    ReplaceUsernamesPopupComponent,
+    BackupReminderPopUpComponent
   ]
 })
 export class AppModule {

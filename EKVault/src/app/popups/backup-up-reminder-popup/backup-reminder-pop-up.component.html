@@ -1,4 +1,8 @@
-<p>
-  backup-reminder works!
-</p>
+<h1 class="mat-h1">Export passwords and settings</h1>
+<p>Because EKVault runs in the browser it is recommended to make frequent backups of your passwords and settings.</p>
+<p>By making passwords you make sure you can recover your data when something goes wrong.</p>
+<p>When updating EKVault it is strongly advised to make a backup first because browser can wipe local storage when updating an extension</p>
 <app-import-export></app-import-export>
+<div class="row" style="margin-top: 1%">
+  <button mat-raised-button (click)="this.dialogRef.close()">Close</button>
+</div>

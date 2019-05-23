@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-backup-reminder',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class BackupReminderPopUpComponent implements OnInit {
 
-  constructor() { }
+  constructor(public readonly dialogRef: MatDialogRef<BackupReminderPopUpComponent>) { }
 
   ngOnInit() {
   }
