@@ -52,37 +52,6 @@ export class SettingsComponent implements OnInit {
     }));
   }
 
-  public importPasswords(): void {
-    this.uploadService.requestfile('.enc', 'Password backup').then((file: IFile) => {
-      this.passwordFile.restorePasswords(file.file.value);
-    }).catch((reason => {
-
-    }));
-  }
-
-  public exportPasswords(): void {
-    saveAs(new Blob([this.passwordFile.getAllEncryptedPasswords()], {type: 'text/plain'}), 'Password backup.enc', true);
-  }
-
-  public importSettings(): void {
-    this.uploadService.requestfile('.json', 'Settings backup').then((file: IFile) => {
-      this.settings.restoreJSON(file.file.value);
-      this.snackbar.open('Restored settings', 'Ok');
-    }).catch((reason) => {
-
-    });
-  }
-
-  public exportSettings(): void {
-    saveAs(new Blob([this.settings.toJSON()], {type: 'text/plain'}), 'Settings.json', true);
-  }
-
-  public saveSettings(): void {
-    this.settings.passwordLengthValue = this.passwordLengthControl.value;
-    this.settings.save();
-    this.snackbar.open('Saved settings', 'Ok');
-  }
-
   public discardSettings(): void {
     this.settings.load();
     this.snackbar.open('Discarded changes', 'Ok');
@@ -97,5 +66,11 @@ export class SettingsComponent implements OnInit {
   public changeTheme(isDarkTheme: boolean): void {
     this.settings.isDarkThemeValue = isDarkTheme;
     this.settings.save();
+  }
+
+  public saveSettings(): void {
+    this.settings.passwordLengthValue = this.passwordLengthControl.value;
+    this.settings.save();
+    this.snackbar.open('Saved settings', 'Ok');
   }
 }

@@ -1,0 +1,31 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Import/Export
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Settings
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="column">
+        <button mat-raised-button (click)="importSettings()">Import Settings</button>
+        <button mat-raised-button (click)="exportSettings()">Export Settings</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Passwords
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="column">
+        <button mat-raised-button (click)="importPasswords()">Import Passwords</button>
+        <button mat-raised-button (click)="exportPasswords()">Export Passwords</button>
+      </div>
+    </mat-expansion-panel>
+  </mat-expansion-panel>
+</mat-accordion>
