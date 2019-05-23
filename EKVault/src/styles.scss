@@ -1,3 +1,5 @@
+@import '_variables';
+
 .cdk-global-scrollblock {
   position: relative !important;
 }
@@ -7,6 +9,14 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-width: 30em;
+}
+
+.dark-theme button:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
 .row {
