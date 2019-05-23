@@ -9,19 +9,23 @@ import {BackUpReminderPopUpService} from "./back-up-reminder-pop-up.service";
 export class BackupReminderService {
 
   private static readonly LAST_REMINDER_KEY = 'lastBackupReminder';
+  public static readonly DAYS_TO_MILLIS = 86400000;
 
   constructor(private readonly settings: SettingsService,
               private readonly exportService: ImportExportService,
               private readonly backupReminderPopup: BackUpReminderPopUpService) {
   }
 
-  private static needsReminder(): boolean {
-    return true; // TODO
+  private needsReminder(): boolean {
+    if(this.settings.remindBackUpTime.value == -1) {
+      return false;
+    }
+    const reminderDate = new Date(localStorage.getItem(BackupReminderService.LAST_REMINDER_KEY)).getTime() + this.settings.remindBackUpTime.value * BackupReminderService.DAYS_TO_MILLIS;
+    return new Date().getTime() > reminderDate;
   }
 
   private static setLastReminderToNow(): void {
-    console.log( new Date().toDateString());
-    localStorage.setItem(BackupReminderService.LAST_REMINDER_KEY, new Date().toDateString());
+    localStorage.setItem(BackupReminderService.LAST_REMINDER_KEY, new Date().toISOString());
   }
 
   private doAutobackup(): boolean {
@@ -46,7 +50,7 @@ export class BackupReminderService {
   }
 
   public tryBackUpOrReminder(): void {
-    if(BackupReminderService.needsReminder()) {
+    if(this.needsReminder()) {
       this.doBackupOrReminder();
     }
   }
