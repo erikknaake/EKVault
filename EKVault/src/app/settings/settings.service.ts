@@ -18,6 +18,7 @@ export class SettingsService {
   public static readonly DEFAULT_DEFAULT_USERNAME = null;
   public static readonly DEFAULT_REMIND_BACKUP_TIME = 30;
   public static readonly DEFAULT_DO_AUTO_BACKUP = false;
+  public static readonly DEFAULT_DO_BACKUP_SETTINGS = true;
 
   private static readonly DEFAULT_PASSWORD_LENGTH = 28;
   private static readonly DEFAULT_ALPHABET = SettingsService.CAPITALS
@@ -70,6 +71,7 @@ export class SettingsService {
       this.isDarkThemeValue = loaded.isDarkTheme;
       this.remindBackUpTimeValue = loaded.remindBackUpTime;
       this.doAutoBackUpValue = loaded.doAutoBackUp;
+      this.doBackupSettingsValue = loaded.doBackupSettings;
     }
     this.setUnsetToDefault();
     this.save();
@@ -83,6 +85,7 @@ export class SettingsService {
     this.isDarkThemeValue = SettingsService.DEFAULT_IS_DARK_THEME;
     this.remindBackUpTimeValue = SettingsService.DEFAULT_REMIND_BACKUP_TIME;
     this.doAutoBackUpValue = SettingsService.DEFAULT_DO_AUTO_BACKUP;
+    this.doBackupSettingsValue = SettingsService.DEFAULT_DO_BACKUP_SETTINGS;
   }
 
   public setUnsetToDefault(): void {
@@ -100,6 +103,8 @@ export class SettingsService {
       this.remindBackUpTimeValue = SettingsService.DEFAULT_REMIND_BACKUP_TIME;
     if(this.doAutoBackUp.value == null)
       this.doAutoBackUpValue = SettingsService.DEFAULT_DO_AUTO_BACKUP;
+    if(this.doBackupSettings.value == null)
+      this.doBackupSettingsValue = SettingsService.DEFAULT_DO_BACKUP_SETTINGS;
   }
 
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PasswordUIHelperService} from "../password-uihelper.service";
 import {PasswordFileService} from "../../shared/password/password-file.service";
 import {SettingsService} from "../../settings/settings.service";
-import {SnackbarService} from "../../popups/snackbar.service";
+import {SnackbarService} from "../../popups/snackbar/snackbar.service";
 import {Router} from "@angular/router";
 import {EditPasswordService} from "../../edit-password/edit-password.service";
 

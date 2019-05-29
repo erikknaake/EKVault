@@ -6,11 +6,7 @@ import {MatDialogRef} from "@angular/material";
   templateUrl: './backup-reminder-pop-up.component.html',
   styleUrls: ['./backup-reminder-pop-up.component.scss']
 })
-export class BackupReminderPopUpComponent implements OnInit {
+export class BackupReminderPopUpComponent {
 
   constructor(public readonly dialogRef: MatDialogRef<BackupReminderPopUpComponent>) { }
-
-  ngOnInit() {
-  }
-
 }

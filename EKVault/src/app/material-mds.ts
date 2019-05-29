@@ -1,20 +1,28 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {
+  MatAccordion,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
-  MatDatepickerModule, MatDividerModule, MatExpansionModule,
+  MatDatepickerModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
   MatOptionModule,
   MatSelectModule,
-  MatSliderModule, MatSlideToggleModule,
+  MatSliderModule,
+  MatSlideToggleModule,
   MatSnackBarModule,
-  MatToolbarModule, MatTooltipModule,
+  MatToolbarModule,
+  MatTooltipModule,
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 
@@ -29,7 +37,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSnackBarModule,
     MatButtonToggleModule,
     MatDialogModule,
-    // Material formulieren
+    // Material forms
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -42,7 +50,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatToolbarModule,
     MatDividerModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   imports: [
     CommonModule,
@@ -54,7 +62,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSnackBarModule,
     MatButtonToggleModule,
     MatDialogModule,
-    // Material formulieren
+    // Material forms
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -63,7 +71,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSliderModule,
     MatInputModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
 })
 export class MaterialMdsModule {

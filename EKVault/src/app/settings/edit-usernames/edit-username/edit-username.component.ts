@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PasswordFileService} from "../../../shared/password/password-file.service";
 import {SettingsService} from "../../settings.service";
-import {SnackbarService} from "../../../popups/snackbar.service";
+import {SnackbarService} from "../../../popups/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-edit-username',

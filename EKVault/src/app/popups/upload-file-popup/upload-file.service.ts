@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from "@angular/material";
-import {MatConfigService} from "../mat-config.service";
+import {MatConfigService} from "../snackbar/mat-config.service";
 import {RequestedFileExtensionService} from "./requested-file-extension.service";
 import {UploadFilePopupComponent} from "./upload-file-popup.component";
 import {IFile} from "../../shared/IFile";
@@ -22,7 +22,7 @@ export class UploadFileService {
     return dialogRef.afterClosed().toPromise();
   }
 
-  public requestfile(extension: string, label: string): Promise<IFile> {
+  public requestFile(extension: string, label: string): Promise<IFile> {
     return new Promise<IFile>(((resolve, reject) => {
       this.getFile(extension, label).then((file: IFile) => {
         if (file == null) {

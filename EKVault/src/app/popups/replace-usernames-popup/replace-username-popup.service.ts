@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material";
-import {MatConfigService} from "../mat-config.service";
+import {MatConfigService} from "../snackbar/mat-config.service";
 import {ReplaceUsernamesPopupComponent} from "./replace-usernames-popup.component";
 
 @Injectable({

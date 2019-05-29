@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {NewMasterPasswordPopupComponent} from "./new-master-password-popup.component";
 import {IPasswordChange} from "../../shared/password/IPasswordChange";
-import {MatConfigService} from "../mat-config.service";
+import {MatConfigService} from "../snackbar/mat-config.service";
 
 @Injectable({
   providedIn: 'root'

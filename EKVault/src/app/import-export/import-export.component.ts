@@ -8,6 +8,7 @@ import {ImportExportService} from "./import-export.service";
 })
 export class ImportExportComponent {
 
+  // CI-ed param is used in HTML
   constructor(private readonly importExportService: ImportExportService) { }
 
 }

@@ -5,7 +5,7 @@ import {saveAs} from 'file-saver';
 import {PasswordFileService} from "../shared/password/password-file.service";
 import {UploadFileService} from "../popups/upload-file-popup/upload-file.service";
 import {IFile} from "../shared/IFile";
-import {SnackbarService} from "../popups/snackbar.service";
+import {SnackbarService} from "../popups/snackbar/snackbar.service";
 import {PasswordRequirementsService} from "../shared/password/password-requirements.service";
 import {AlphabetService} from "../shared/password/alphabet.service";
 
