@@ -78,7 +78,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-import 'intl';
 
 import 'core-js/es7/reflect';
 import 'core-js/client/shim';
