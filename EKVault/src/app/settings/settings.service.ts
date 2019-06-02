@@ -63,7 +63,7 @@ export class SettingsService {
       this.usernamesValue = loaded.usernames;
       this.isDarkThemeValue = loaded.isDarkTheme;
     }
-    //this.setUnsetToDefault();
+    // this.setUnsetToDefault();
     this.save();
   }
 
