@@ -1,7 +1,6 @@
-import {Inject, Injectable, Renderer2} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ObservableValue} from "../shared/ObservableValue";
 import {ISettings} from "./ISettings";
-import {DOCUMENT} from "@angular/common";
 import {ArrayHelper} from "../shared/ArrayHelper";
 
 @Injectable({
@@ -62,16 +61,18 @@ export class SettingsService {
   }
 
   public restoreJSON(json: string): void {
-    const loaded: ISettings = JSON.parse(json);
-    if (loaded != null) {
-      this.passwordLengthValue = loaded.passwordLength;
-      this.alphabetValue = loaded.alphabet;
-      this.defaultUsernameValue = loaded.defaultUsername;
-      this.usernamesValue = loaded.usernames;
-      this.isDarkThemeValue = loaded.isDarkTheme;
-      this.remindBackUpTimeValue = loaded.remindBackUpTime;
-      this.doAutoBackUpValue = loaded.doAutoBackUp;
-      this.doBackupSettingsValue = loaded.doBackupSettings;
+    if (json != null) {
+      const loaded: ISettings = JSON.parse(json);
+      if (loaded != null) {
+        this.passwordLengthValue = loaded.passwordLength;
+        this.alphabetValue = loaded.alphabet;
+        this.defaultUsernameValue = loaded.defaultUsername;
+        this.usernamesValue = loaded.usernames;
+        this.isDarkThemeValue = loaded.isDarkTheme;
+        this.remindBackUpTimeValue = loaded.remindBackUpTime;
+        this.doAutoBackUpValue = loaded.doAutoBackUp;
+        this.doBackupSettingsValue = loaded.doBackupSettings;
+      }
     }
     this.setUnsetToDefault();
     this.save();
@@ -89,21 +90,21 @@ export class SettingsService {
   }
 
   public setUnsetToDefault(): void {
-    if(this.passwordLength.value == null)
+    if (this.passwordLength.value == null)
       this.passwordLengthValue = SettingsService.DEFAULT_PASSWORD_LENGTH;
-    if(this.alphabet.value == null)
+    if (this.alphabet.value == null)
       this.alphabetValue = SettingsService.DEFAULT_ALPHABET;
-    if(this.defaultUsername.value == null)
+    if (this.defaultUsername.value == null)
       this.defaultUsernameValue = SettingsService.DEFAULT_DEFAULT_USERNAME;
-    if(this.usernames.value == null)
+    if (this.usernames.value == null)
       this.usernamesValue = SettingsService.DEFAULT_USERNAMES;
-    if(this.isDarkTheme.value == null)
+    if (this.isDarkTheme.value == null)
       this.isDarkThemeValue = SettingsService.DEFAULT_IS_DARK_THEME;
-    if(this.remindBackUpTime.value == null)
+    if (this.remindBackUpTime.value == null)
       this.remindBackUpTimeValue = SettingsService.DEFAULT_REMIND_BACKUP_TIME;
-    if(this.doAutoBackUp.value == null)
+    if (this.doAutoBackUp.value == null)
       this.doAutoBackUpValue = SettingsService.DEFAULT_DO_AUTO_BACKUP;
-    if(this.doBackupSettings.value == null)
+    if (this.doBackupSettings.value == null)
       this.doBackupSettingsValue = SettingsService.DEFAULT_DO_BACKUP_SETTINGS;
   }
 

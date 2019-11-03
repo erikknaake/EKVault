@@ -23,11 +23,10 @@ describe('ImportExportService', () => {
     uploadServiceSpy.requestFile.and.returnValue(Promise.resolve({file: {value: 'abc'}}));
 
     passwordFileSpy = jasmine.createSpyObj('PasswordFileService', ['restorePasswords', 'getAllEncryptedPasswords']);
-   // passwordFileSpy.restorePasswords.and.callFake(() => {console.log('restore passwords')});
     passwordFileSpy.getAllEncryptedPasswords.and.returnValue(encryptedPasswords);
 
     snackbarSpy = jasmine.createSpyObj('SnackbarService', ['open']);
-   // snackbarSpy.open.and.callFake(() => {console.log('open')});
+
     settingsSpy = jasmine.createSpyObj('SettingsService', ['restoreJSON', 'toJSON']);
     settingsSpy.toJSON.and.returnValue(settingsJSON);
 

@@ -4,6 +4,7 @@ import { BackupReminderService } from './backup-reminder.service';
 import {SettingsService} from "../../settings/settings.service";
 import {ImportExportService} from "../../import-export/import-export.service";
 import {BackUpReminderPopUpService} from "./back-up-reminder-pop-up.service";
+import {ObservableValue} from "../../shared/ObservableValue";
 
 describe('BackupReminderService', () => {
   let service: BackupReminderService;
@@ -11,29 +12,24 @@ describe('BackupReminderService', () => {
   let settingsSpy;
   let exportSpy;
   let backupReminderPopUpSpy;
-  let backuptimeSpy;
   let doOrRemindBackupSpy;
   let localStorageSpy;
-  let remindBackUpTimeSpy;
+
   beforeEach(() => {
     localStorageSpy = spyOn(localStorage, 'getItem');
-    backuptimeSpy = jasmine.createSpyObj('ObservableValue', ['value']);
-    settingsSpy = jasmine.createSpyObj('SettingsService', ['remindBackUpTime', 'doAutoBackup', 'doBackupSettings']);
-    remindBackUpTimeSpy = spyOnProperty(settingsSpy, 'remindBackUpTime');
-    remindBackUpTimeSpy.and.callFake(() => {
-      console.log('settings spy');
-      return backuptimeSpy;
-    });
     exportSpy = jasmine.createSpyObj('ImportExportService', ['exportSettings', 'exportPasswords']);
     backupReminderPopUpSpy = jasmine.createSpyObj('BackupReminderPopUpService', ['openBackupReminder']);
 
     TestBed.configureTestingModule({
       providers: [
-        {provide: SettingsService, useValue: settingsSpy},
+        SettingsService,
         {provide: ImportExportService, useValue: exportSpy},
         {provide: BackUpReminderPopUpService, useValue: backupReminderPopUpSpy}
       ]
     });
+
+    const settings = TestBed.get(SettingsService);
+    settingsSpy = spyOnProperty(settings, 'remindBackUpTime', 'get');
 
     service = TestBed.get(BackupReminderService);
     doOrRemindBackupSpy = spyOn<any>(service, 'doBackupOrReminder');
@@ -44,25 +40,56 @@ describe('BackupReminderService', () => {
   });
 
   it('should backup when it needs to', () => {
-    console.log('test');
-    backuptimeSpy.value.and.returnValue(29);
+    settingsSpy.and.callFake(() => {
+      const result = new ObservableValue<number>();
+      result.value = 29;
+      return result;
+    });
+
     const lastBackUpDate = new Date();
     lastBackUpDate.setMilliseconds(lastBackUpDate.getMilliseconds() - (86400000 * 30)); // Set the latest backup day to 30 days ago
     localStorageSpy.and.returnValue(lastBackUpDate.toISOString());
 
     service.tryBackUpOrReminder();
 
-    expect(backuptimeSpy.value).toHaveBeenCalledTimes(1);
-    expect(localStorageSpy).toHaveBeenCalledTimes(1);
+    expect(localStorageSpy).toHaveBeenCalledTimes(2);
     expect(localStorageSpy).toHaveBeenCalledWith('lastBackupReminder');
     expect(doOrRemindBackupSpy).toHaveBeenCalledTimes(1);
   });
 
-  // it('should not backup when it does not need to', () => {
-  //
-  // });
-  //
-  // it('should never backup when backup time is set to never', () => {
-  //   backuptimeSpy.value.and.returnValue(-1);
-  // });
+  it('should not backup when it does not needs to', () => {
+    settingsSpy.and.callFake(() => {
+      const result = new ObservableValue<number>();
+      result.value = 30;
+      return result;
+    });
+
+    const lastBackUpDate = new Date();
+    lastBackUpDate.setMilliseconds(lastBackUpDate.getMilliseconds() - (86400000 * 30)); // Set the latest backup day to 30 days ago
+    localStorageSpy.and.returnValue(lastBackUpDate.toISOString());
+
+    service.tryBackUpOrReminder();
+
+    expect(localStorageSpy).toHaveBeenCalledTimes(2);
+    expect(localStorageSpy).toHaveBeenCalledWith('lastBackupReminder');
+    expect(doOrRemindBackupSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should never backup when backup time is set to never', () => {
+    settingsSpy.and.callFake(() => {
+      const result = new ObservableValue<number>();
+      result.value = -1;
+      return result;
+    });
+
+    const lastBackUpDate = new Date();
+    lastBackUpDate.setMilliseconds(lastBackUpDate.getMilliseconds() - (86400000 * 3000)); // Set the latest backup day to 3000 days ago
+    localStorageSpy.and.returnValue(lastBackUpDate.toISOString());
+
+    service.tryBackUpOrReminder();
+
+    expect(localStorageSpy).toHaveBeenCalledTimes(1);
+    expect(doOrRemindBackupSpy).toHaveBeenCalledTimes(0);
+  });
+
 });

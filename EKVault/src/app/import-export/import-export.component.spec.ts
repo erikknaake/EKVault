@@ -1,13 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ImportExportComponent } from './import-export.component';
+import {ImportExportComponent} from './import-export.component';
 import {MatExpansionModule} from "@angular/material";
 import {ImportExportService} from "./import-export.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('ImportExportComponent', () => {
   let component: ImportExportComponent;
-  let fixture: ComponentFixture<ImportExportComponent>;
   let importExportSpy;
 
   beforeEach(async(() => {
@@ -15,18 +14,15 @@ describe('ImportExportComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ImportExportComponent ],
       providers: [
-        {provide: ImportExportService, useValue: importExportSpy}
+        {provide: ImportExportService, useValue: importExportSpy},
+        ImportExportComponent
       ],
       imports: [MatExpansionModule, BrowserAnimationsModule]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ImportExportComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    component = TestBed.get(ImportExportComponent)
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

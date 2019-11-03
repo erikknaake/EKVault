@@ -17,9 +17,7 @@ export class ImportExportService {
               private readonly snackbar: SnackbarService) { }
 
   public importPasswords(): void {
-    console.log('import password');
     this.uploadService.requestFile('.enc', 'Password backup').then((file: IFile) => {
-      console.log('inside then');
       this.passwordFile.restorePasswords(file.file.value);
       this.snackbar.open('Restored passwords', 'Ok');
     }).catch((reason => {

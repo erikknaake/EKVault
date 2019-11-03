@@ -17,16 +17,10 @@ export class BackupReminderService {
   }
 
   private needsReminder(): boolean {
-    console.log('needs reminder');
     if(this.settings.remindBackUpTime.value == -1) {
-      console.log('never backup');
       return false;
     }
-    console.log('check localstorage');
-    console.log('ls value: ', new Date(localStorage.getItem(BackupReminderService.LAST_REMINDER_KEY)).getTime());
-    console.log('last backup: ', this.settings.remindBackUpTime.value * BackupReminderService.DAYS_TO_MILLIS);
     const reminderDate = new Date(localStorage.getItem(BackupReminderService.LAST_REMINDER_KEY)).getTime() + this.settings.remindBackUpTime.value * BackupReminderService.DAYS_TO_MILLIS;
-    console.log(new Date().getTime() > reminderDate);
     return new Date().getTime() > reminderDate;
   }
 
@@ -56,9 +50,7 @@ export class BackupReminderService {
   }
 
   public tryBackUpOrReminder(): void {
-    console.log('try');
     if(this.needsReminder()) {
-      console.log('in if');
       this.doBackupOrReminder();
     }
   }
